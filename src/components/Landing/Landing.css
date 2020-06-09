@@ -1,0 +1,32 @@
+.landing {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+  
+.landingsection {
+    min-height: 300px;
+    background-color: #bbb;
+}
+
+.landingsection:nth-child(even) {
+    background-color: #ddd;
+}
+
+.right {
+    float: right;
+}
+
+.screenshot {
+    background-color: black;
+    color: white;
+    height: 200px;
+    width: 150px;
+}
+
+.landingfooter {
+    text-align: center;
+    background-color: #aaa;
+}
