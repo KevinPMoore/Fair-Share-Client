@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './Landing.css';
 
-class Landing extends React.Component {
+export default class Landing extends React.Component {
 
     render() {
         return(
@@ -55,7 +55,5 @@ class Landing extends React.Component {
                 </footer>
             </section>
         )
-    }
-}
-
-export default Landing;
+    };
+};

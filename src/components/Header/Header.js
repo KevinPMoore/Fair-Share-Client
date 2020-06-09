@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import TokenService from '../../services/token-service';
 import './Header.css';
 
-class Header extends React.Component {
+export default class Header extends React.Component {
     state = {
         burger: 'show',
         buttons: 'hide'
@@ -103,5 +103,3 @@ class Header extends React.Component {
         )
     };
 };
-
-export default Header;

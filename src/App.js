@@ -2,9 +2,11 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Header from './components/Header/Header';
 import Landing from './components/Landing/Landing';
+import Login from './components/Login/Login';
+import Register from './components/Register/Register';
 import './App.css';
 
-class App extends React.Component {
+export default class App extends React.Component {
   state = {
     loggedIn: true,
     userId: 0
@@ -34,11 +36,21 @@ class App extends React.Component {
               path={'/'}
               component={Landing}
             />
+
+            <Route
+              exact
+              path={'/login'}
+              component={Login}
+            />
+
+            <Route
+              exact
+              path={'/register'}
+              component={Register}
+            />
           </Switch>
        </main>
      </div>
     )
   };
 };
-
-export default App;
