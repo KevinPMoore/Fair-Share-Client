@@ -4,6 +4,7 @@ import Header from './components/Header/Header';
 import Landing from './components/Landing/Landing';
 import Login from './components/Login/Login';
 import Register from './components/Register/Register';
+import Demo from './components/Demo/Demo';
 import './App.css';
 
 export default class App extends React.Component {
@@ -62,6 +63,12 @@ export default class App extends React.Component {
               path={'/register'}
               render={(props) => <Register {...props} updateLoggedIn={this.updateLoggedIn} updateUserName={this.updateUserName}/>}
               //fake registering
+            />
+
+            <Route
+              exact
+              path={'/demo'}
+              render={(props) => <Demo {...props}/>}
             />
           </Switch>
        </main>

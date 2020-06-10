@@ -50,8 +50,18 @@ export default class Landing extends React.Component {
                     <p>
                     You can try Fair Share out for your self, or if you're already convinced sign up for your own account below!. 
                     </p>
-                    <button>Demo the app</button>
-                    <button>Register</button>
+                    <Link
+                        className='landinglink'
+                        to='/demo'
+                    >
+                        <button>Demo the app</button>
+                    </Link>
+                    <Link 
+                        className='landinglink'
+                        to='/register'
+                    >
+                      <button>Register</button>  
+                    </Link>
                 </footer>
             </section>
         )
