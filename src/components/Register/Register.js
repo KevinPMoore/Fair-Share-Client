@@ -20,8 +20,19 @@ export default class Register extends React.Component {
             password: ev.target.value
         });
     };
-    //needs a version of onSignupSuccess
+    //replace the '/' with userhome
+    handleRegisterSuccess = () => {
+        const { location, history } = this.props;
+        const destination = (location.state || {}).from || '/';
+        history.push(destination);
+    };
 
+    handleFakeSubmit = (ev) => {
+        ev.preventDefault();
+        this.props.updateLoggedIn();
+        this.props.updateUserName(this.state.username);
+        this.handleLoginSuccess();
+    };
     //some auth stuff
     render() {
         const error = this.state.error;

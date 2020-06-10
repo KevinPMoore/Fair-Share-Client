@@ -41,7 +41,7 @@ export default class Header extends React.Component {
             <div className='loggedin'>
                 <Link 
                     className='userhomelink'
-                    to='/userhome'>
+                    to='/userhome'
                 >
                     <button className='navbutton'>
                         Home
@@ -60,6 +60,7 @@ export default class Header extends React.Component {
         );
     };
 
+    //change from props to authtoken haslogin
     renderLogin() {
         return(
             <div className='notloggedin'>
@@ -97,7 +98,7 @@ export default class Header extends React.Component {
                     </h1>
                 </div>
                 <div>
-                    {TokenService.hasAuthToken() ? this.renderLogout() : this.renderLogin()}
+                    {this.props.loggedIn === true ? this.renderLogout() : this.renderLogin()}
                 </div>
             </nav>
         )

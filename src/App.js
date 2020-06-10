@@ -8,13 +8,26 @@ import './App.css';
 
 export default class App extends React.Component {
   state = {
-    loggedIn: true,
+    loggedIn: false,
+    userName: '',
     userId: 0
   };
 
-  updatedLoggedIn = () => {
+  updateLoggedIn = () => {
     this.setState({
       loggedIn: !this.state.loggedIn
+    });
+  };
+
+  updateUserName = (name) => {
+    this.setState({
+      userName: name
+    });
+  };
+
+  updateUserId = (id) => {
+    this.setState({
+      userId: id
     });
   };
 
@@ -26,7 +39,7 @@ export default class App extends React.Component {
        <header>
           <Header
             loggedIn={this.state.loggedIn}
-            updatedLoggedIn={this.updatedLoggedIn}
+            updateLoggedIn={this.updateLoggedIn}
           />
        </header>
        <main>
@@ -40,13 +53,15 @@ export default class App extends React.Component {
             <Route
               exact
               path={'/login'}
-              component={Login}
+              render={(props) => <Login {...props} updateLoggedIn={this.updateLoggedIn} updateUserName={this.updateUserName}/>}
+              //fake loging in
             />
 
             <Route
               exact
               path={'/register'}
-              component={Register}
+              render={(props) => <Register {...props} updateLoggedIn={this.updateLoggedIn} updateUserName={this.updateUserName}/>}
+              //fake registering
             />
           </Switch>
        </main>

@@ -20,9 +20,22 @@ export default class Login extends React.Component {
             password: ev.target.value
         });
     };
-    //needs a version of onLoginSuccess
+
+    //change the '/' to the userhome
+    handleLoginSuccess = () => {
+        const { location, history } = this.props;
+        const destination = (location.state || {}).from || '/';
+        history.push(destination);
+    };
 
     //some auth stuff
+
+    handleFakeSubmit = (ev) => {
+        ev.preventDefault();
+        this.props.updateLoggedIn();
+        this.props.updateUserName(this.state.username);
+        this.handleLoginSuccess();
+    };
 
     render() {
         const error = this.state.error;
@@ -30,6 +43,7 @@ export default class Login extends React.Component {
             <form
                 className='registerform'
                 //some on submit for auth
+                onSubmit={this.handleFakeSubmit}
             >
                 <div className='alert'>
                     {error && <p className='red'>{error}</p>}
