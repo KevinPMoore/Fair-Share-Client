@@ -1,0 +1,50 @@
+.demo {
+    height: 100%;
+    width: 100%;
+}
+
+h2 {
+    text-align: center;
+}
+
+.demousers {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.demouser {
+    min-width: 130px;
+    max-width: 40%;
+    min-height: 180px;
+    background-color: #bbb;
+    border: 1px solid black;
+    margin-bottom: 4px;
+}
+
+.demousername {
+    text-align: center;
+}
+
+.demouserchores {
+    background-color: violet;
+    min-height: 90%;
+}
+
+.demochores {
+    display: flex;
+    flex-direction: row;
+    max-width: 300px;
+    margin-left: auto;
+    margin-right:  auto;
+    background-color: #aaa;
+}
+
+.demochorelist {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    list-style: none;
+}
