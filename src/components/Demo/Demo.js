@@ -9,6 +9,18 @@ export default class Demo extends React.Component {
         unassignedChores: [],
     };
 
+    updateUserChores = (user, chore) => {
+        this.setState({
+            assignedChores: this.state.assignedChores.concat(chore),
+            unassignedChores: this.state.unassignedChores.filter(chores => chores !== chore),
+            [user.username]: {
+                id: user.id,
+                username: user.username,
+                chores: user.chores.push(chore)
+            }
+        });
+    };
+
     renderUsers = (users) => {
         let renderUsers = users.map(user => 
                 <div 
@@ -40,20 +52,8 @@ export default class Demo extends React.Component {
         return(userChores)
     };
 
-    renderUserButtons = (users) => {
-        let buttons = users.map(user =>
-            <button
-                //some button properties
-            >
-                {user.username}
-            </button>
-        );
-        return(buttons)
-    };
-
     //add buttons to being rendered
     renderChoreList = (chores, users) => {
-        console.log('chores are ', chores)
         let choreList = chores.map(chore =>
             <li 
                 id={chores.indexOf(chore)}
@@ -63,7 +63,7 @@ export default class Demo extends React.Component {
                 key={chores.indexOf(chore)}
             >
                 {chore}
-                {this.renderUserButtons(users)}
+                {this.renderUserButtons(users, chore)}
             </li>
             );
             return(
@@ -71,6 +71,20 @@ export default class Demo extends React.Component {
                     {choreList}
                 </ul>
             )
+    };
+
+    renderUserButtons = (users, chore) => {
+        console.log('users in renderUserButtons are ', users)
+        let buttons = users.map(user =>
+            <button
+                key={user.username+user.id}
+                id={user.username}
+                onClick={() => this.updateUserChores(user, chore)}
+            >
+                {user.username}
+            </button>
+        );
+        return(buttons)
     };
 
     componentDidMount() {
@@ -86,6 +100,10 @@ export default class Demo extends React.Component {
         });
     };
 
+    weirdTest = (ev) => {
+        console.log('target value is ', ev.target.id)
+    }
+
     //TODOs:
     //chores can be dragged/dropped
     //unassign resets chore list
@@ -98,6 +116,12 @@ export default class Demo extends React.Component {
                 <h2>
                     Demo House
                 </h2>
+                <button
+                    id='hey'
+                    onClick={this.weirdTest}
+                >
+                    Stupid button
+                </button>
                 {this.renderUsers(users)}
                 <section className='demochores'>
                     <span className='demovertical'>Chores</span>
