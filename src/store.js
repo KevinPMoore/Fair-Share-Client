@@ -16,4 +16,17 @@ let storedChores = [
     
 ]
 
-export default storedChores;
+let storedUsers = [
+    {
+        id: 1,
+        username: 'User1',
+        chores: []
+    },
+    {
+        id: 2,
+        username: 'User2',
+        chores: []
+    }
+]
+
+export default {storedChores, storedUsers};
