@@ -20,7 +20,7 @@ let storedUsers = [
     {
         id: 1,
         username: 'User1',
-        chores: []
+        chores: ['Eat bananas']
     },
     {
         id: 2,
