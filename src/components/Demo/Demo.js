@@ -1,7 +1,6 @@
 import React from 'react';
 import Store from '../../store';
 import './Demo.css';
-import store from '../../store';
 
 export default class Demo extends React.Component {
     state = {
@@ -25,7 +24,7 @@ export default class Demo extends React.Component {
         let renderUsers = users.map(user => 
                 <div 
                     key={user.id}
-                    id={user.id}
+                    id={user.username+user.id}
                     className='demouser'
                 >
                     <p className='demousername'>{user.username}</p>
@@ -45,14 +44,15 @@ export default class Demo extends React.Component {
 
     renderUserChores = (chores) => {
         let userChores = chores.map(chore =>
-            <li>
+            <li
+                key={chores.indexOf(chore)}
+            >
                 {chore}
             </li>
         );
         return(userChores)
     };
 
-    //add buttons to being rendered
     renderChoreList = (chores, users) => {
         let choreList = chores.map(chore =>
             <li 
@@ -74,7 +74,6 @@ export default class Demo extends React.Component {
     };
 
     renderUserButtons = (users, chore) => {
-        console.log('users in renderUserButtons are ', users)
         let buttons = users.map(user =>
             <button
                 key={user.username+user.id}
@@ -85,6 +84,41 @@ export default class Demo extends React.Component {
             </button>
         );
         return(buttons)
+    };
+
+    //duplicates <li> items even though this sets state correctly
+    handleUnassignAll = () => {
+        const users = Store.storedUsers;
+        if(this.state.assignedChores.length !== 0) {
+            users.forEach(user =>
+                this.setState({
+                    [user.username]: {
+                        id: user.id,
+                        username: user.username,
+                        chores: []
+                    }
+                })
+            )
+            this.setState({
+                unassignedChores: Store.storedChores,
+                assignedChores: []
+            })
+        };
+    };
+
+    //needs to give chores to users
+    handleRandomize = (users) => {
+        let choresToRandomize = this.state.unassignedChores;
+        this.setState({
+            assignedChores: this.state.unassignedChores,
+            unassignedChores: []
+        });
+        console.log(choresToRandomize)
+        users.forEach(user => {
+            for(let i = 0; i > choresToRandomize.length; i++) {
+
+            }
+        })
     };
 
     componentDidMount() {
@@ -100,10 +134,6 @@ export default class Demo extends React.Component {
         });
     };
 
-    weirdTest = (ev) => {
-        console.log('target value is ', ev.target.id)
-    }
-
     //TODOs:
     //chores can be dragged/dropped
     //unassign resets chore list
@@ -116,21 +146,19 @@ export default class Demo extends React.Component {
                 <h2>
                     Demo House
                 </h2>
-                <button
-                    id='hey'
-                    onClick={this.weirdTest}
-                >
-                    Stupid button
-                </button>
                 {this.renderUsers(users)}
                 <section className='demochores'>
                     <span className='demovertical'>Chores</span>
                     {this.renderChoreList(this.state.unassignedChores, users)}
                     <div className='demochorebuttons'>
-                        <button>
+                        <button
+                            onClick={this.handleUnassignAll}
+                        >
                             Unassign All
                         </button>
-                        <button>
+                        <button
+                            onClick={this.handleRandomize}
+                        >
                             Randomize
                         </button>
                     </div>

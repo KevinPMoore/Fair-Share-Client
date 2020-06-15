@@ -20,10 +20,10 @@ export default class Register extends React.Component {
             password: ev.target.value
         });
     };
-    //replace the '/' with userhome
+
     handleRegisterSuccess = () => {
         const { location, history } = this.props;
-        const destination = (location.state || {}).from || '/';
+        const destination = (location.state || {}).from || '/userhome';
         history.push(destination);
     };
 

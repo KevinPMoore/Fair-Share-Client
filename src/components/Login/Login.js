@@ -21,10 +21,9 @@ export default class Login extends React.Component {
         });
     };
 
-    //change the '/' to the userhome
     handleLoginSuccess = () => {
         const { location, history } = this.props;
-        const destination = (location.state || {}).from || '/';
+        const destination = (location.state || {}).from || '/userhome';
         history.push(destination);
     };
 

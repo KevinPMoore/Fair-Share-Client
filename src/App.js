@@ -5,6 +5,10 @@ import Landing from './components/Landing/Landing';
 import Login from './components/Login/Login';
 import Register from './components/Register/Register';
 import Demo from './components/Demo/Demo';
+import UserHome from './components/UserHome/UserHome';
+import Household from './components/Household/Household';
+import Manage from './components/Manage/Manage';
+import AddChore from './components/AddChore/AddChore';
 import './App.css';
 
 export default class App extends React.Component {
@@ -70,6 +74,31 @@ export default class App extends React.Component {
               path={'/demo'}
               render={(props) => <Demo {...props}/>}
             />
+
+            <Route
+              exact
+              path={'/userhome'}
+              render={(props) => <UserHome {...props}/>}
+            />
+
+            <Route
+              exact
+              path={'/household'}
+              render={(props) => <Household {...props}/>}
+            />
+
+            <Route
+              exact
+              path={'/manage'}
+              render={(props) => <Manage {...props}/>}
+            />
+            
+            <Route
+              exact
+              path={'/addchore'}
+              render={(props) => <AddChore {...props}/>}
+            />
+            
           </Switch>
        </main>
      </div>
