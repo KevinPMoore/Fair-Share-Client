@@ -78,7 +78,7 @@ export default class App extends React.Component {
             <Route
               exact
               path={'/userhome'}
-              render={(props) => <UserHome {...props}/>}
+              render={(props) => <UserHome {...props} userName={this.state.userName}/>}
             />
 
             <Route
@@ -98,7 +98,7 @@ export default class App extends React.Component {
               path={'/addchore'}
               render={(props) => <AddChore {...props}/>}
             />
-            
+
           </Switch>
        </main>
      </div>

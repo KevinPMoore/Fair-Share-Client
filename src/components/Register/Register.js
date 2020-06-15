@@ -31,7 +31,7 @@ export default class Register extends React.Component {
         ev.preventDefault();
         this.props.updateLoggedIn();
         this.props.updateUserName(this.state.username);
-        this.handleLoginSuccess();
+        this.handleRegisterSuccess();
     };
     //some auth stuff
     render() {
@@ -86,6 +86,7 @@ export default class Register extends React.Component {
                 <button
                     id='registersubmit'
                     type='submit'
+                    onClick={this.handleFakeSubmit}
                 >
                     Register
                 </button>

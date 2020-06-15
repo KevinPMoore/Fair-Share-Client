@@ -3,5 +3,12 @@ import { Link } from 'react-router-dom';
 import './Household.css';
 
 export default class Household extends React.Component {
-    
+
+    render() {
+        return(
+            <div className='household'>
+                
+            </div>
+        )
+    }
 }
