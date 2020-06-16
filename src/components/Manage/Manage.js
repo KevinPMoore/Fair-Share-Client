@@ -1,20 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Store from '../../store';
 import './Manage.css';
 
 export default class Manage extends React.Component {
-    state = {
-        users: [],
-        chores: []
-    };
 
-    componentDidMount() {
-        this.setState({
-            users: Store.storedUsers,
-            chores: Store.storedChores
-        });
-    };
+    //use props passed from app
     
     render() {
         return(

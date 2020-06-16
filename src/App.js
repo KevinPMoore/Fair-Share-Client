@@ -9,13 +9,17 @@ import UserHome from './components/UserHome/UserHome';
 import Household from './components/Household/Household';
 import Manage from './components/Manage/Manage';
 import AddChore from './components/AddChore/AddChore';
+import Store from './store';
 import './App.css';
 
 export default class App extends React.Component {
   state = {
     loggedIn: false,
     userName: '',
-    userId: 0
+    userId: 0,
+    users: [],
+    chores: [],
+    households: ['My House']
   };
 
   updateLoggedIn = () => {
@@ -34,6 +38,29 @@ export default class App extends React.Component {
     this.setState({
       userId: id
     });
+  };
+
+  updateUsers = (users) => {
+    this.setState({
+      users: users
+    });
+  };
+
+  updateChores = (chores) => {
+    this.setState({
+      chores: chores
+    });
+  };
+
+  updateHouseholds = (house) => {
+    this.setState({
+      households: house
+    });
+  };
+
+  componentDidMount() {
+    this.updateChores(Store.storedChores);
+    this.updateUsers(Store.storedUsers);
   };
 
   //needs login, register, userhome, household, manage and add routes
@@ -78,25 +105,25 @@ export default class App extends React.Component {
             <Route
               exact
               path={'/userhome'}
-              render={(props) => <UserHome {...props} userName={this.state.userName}/>}
+              render={(props) => <UserHome {...props} userName={this.state.userName} households={this.state.households} updateHouseholds={this.updateHouseholds}/>}
             />
 
             <Route
               exact
               path={'/household'}
-              render={(props) => <Household {...props}/>}
+              render={(props) => <Household {...props} chores={this.state.chores} users={this.state.users} updateChores={this.updateChores}/>}
             />
 
             <Route
               exact
               path={'/manage'}
-              render={(props) => <Manage {...props}/>}
+              render={(props) => <Manage {...props} chores={this.state.chores} users={this.state.users} updateChores={this.updateChores}/>}
             />
             
             <Route
               exact
               path={'/addchore'}
-              render={(props) => <AddChore {...props}/>}
+              render={(props) => <AddChore {...props} chores={this.state.chores} users={this.state.users} updateChores={this.updateChores}/>}
             />
 
           </Switch>

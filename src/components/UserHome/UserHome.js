@@ -12,7 +12,7 @@ export default class UserHome extends React.Component {
     state = {
         join: 'collapsed',
         create: 'collapsed'
-    }
+    };
 
     updatedJoin = () => {
         if(this.state.join === 'collapsed') {
@@ -23,8 +23,8 @@ export default class UserHome extends React.Component {
             this.setState({
                 join:'collapsed'
             })
-        }
-    }
+        };
+    };
 
     updatedCreate = () => {
         if(this.state.create === 'collapsed') {
@@ -35,7 +35,16 @@ export default class UserHome extends React.Component {
             this.setState({
                 create:'collapsed'
             })
-        }
+        };
+    };
+
+    //finish here
+    renderHouseholds = (households) => {
+        let householdList = households.map(house =>
+            <li>
+                Hi
+            </li>
+        )
     }
 
 
