@@ -1,6 +1,7 @@
 import React from 'react';
 import Store from '../../store';
 import './Demo.css';
+import { Link } from 'react-router-dom';
 
 export default class Demo extends React.Component {
     state = {
@@ -163,6 +164,15 @@ export default class Demo extends React.Component {
                         </button>
                     </div>
                 </section>
+                <footer
+                    className='demofooter'
+                >
+                    <Link
+                        to='/register'
+                    >
+                        Register
+                    </Link>
+                </footer>
             </div>
         );
     };

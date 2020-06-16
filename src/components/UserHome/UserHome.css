@@ -6,7 +6,7 @@
     height: 100%;
 }
 
-form.collapsed {
+.collapsed {
     display: none;
 }
 
@@ -23,9 +23,15 @@ form.collapsed {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    min-height: 180px;
     width: 80%;
     margin-left: auto;
     margin-right: auto;
+    background-color: #bbb;
+}
+
+.userhomelabel {
+    text-align: center;
 }
 
 .createhouseholdbutton {
@@ -37,7 +43,9 @@ form.collapsed {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    min-height: 180px;
     width: 80%;
     margin-left: auto;
     margin-right: auto;
+    background-color: #ddd;
 }

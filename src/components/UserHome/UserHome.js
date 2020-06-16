@@ -4,6 +4,7 @@ import './UserHome.css';
 
 //this component needs to...
 //have forms expand/collapse
+//   button need to use setstate
 //link to household when clicked
 //fake creating a household
 
@@ -14,25 +15,25 @@ export default class UserHome extends React.Component {
     }
 
     updatedJoin = () => {
-        if(this.state.join === 'collapse') {
+        if(this.state.join === 'collapsed') {
             this.setState({
                 join: 'expand'
             })
         } else {
             this.setState({
-                join:'collapse'
+                join:'collapsed'
             })
         }
     }
 
     updatedCreate = () => {
-        if(this.state.create === 'collapse') {
+        if(this.state.create === 'collapsed') {
             this.setState({
                 create: 'expand'
             })
         } else {
             this.setState({
-                create:'collapse'
+                create:'collapsed'
             })
         }
     }
@@ -52,54 +53,76 @@ export default class UserHome extends React.Component {
                 </Link>
                 <button
                     className='joinhouseholdbutton'
+                    onClick={this.updatedJoin}
                 >
                     Join Household
                 </button>
-                <form
-                    className={[this.state.join, 'joinhouseholdform'].join(' ')}
-                >
-                    <label
-                        htmlFor='joinhouseholdname'
+                <div className={this.state.join}>
+                    <form
+                        className='joinhouseholdform'
                     >
-                        Household name
-                    </label>
-                    <input
-                        type='text'
-                        id='joinhouseholdname'
-                        placeholder='My House'
-                    >
-                    </input>
-                    <label
-                        htmlFor='joinhouseholdid'
-                    >
-                        Household id
-                    </label>
-                    <input
-                        type='number'
-                        id='joinhouseholdid'
-                    >
-                    </input>
-                </form>
+                        <label
+                            className='userhomelabel'
+                            htmlFor='joinhouseholdname'
+                        >
+                            Household name
+                        </label>
+                        <input
+                            type='text'
+                            id='joinhouseholdname'
+                            placeholder='My House'
+                            required
+                        >
+                        </input>
+                        <label
+                            className='userhomelabel'
+                            htmlFor='joinhouseholdid'
+                        >
+                            Household id
+                        </label>
+                        <input
+                            type='number'
+                            id='joinhouseholdid'
+                            required
+                        >
+                        </input>
+                        <button
+                            type='submit'
+                        >
+                            Submit
+                        </button>
+                    </form>
+                </div>
                 <button
                     className='createhouseholdbutton'
+                    onClick={this.updatedCreate}
                 >
                     Create Household
                 </button>
-                <form
-                    className={[this.state.join, 'createhouseholdform'].join(' ')}
-                >
-                    <label
-                        htmlFor='createhouseholdname'
+                <div className={this.state.create}>
+                    <form
+                        className='createhouseholdform'
                     >
-                        Household name
-                    </label>
-                    <input
-                        type='text'
-                        id='createhouseholdname'
-                        placeholder='My House'
-                    >
-                    </input>
-                </form>
+                        <label
+                            className='createhouseholdnamelabel'
+                            htmlFor='userhomelabel'
+                        >
+                            Household name
+                        </label>
+                        <input
+                            type='text'
+                            id='createhouseholdname'
+                            placeholder='My House'
+                            required
+                        >
+                        </input>
+                        <button
+                            type='submit'
+                        >
+                            Submit
+                        </button>
+                    </form> 
+                </div>
             </div>
         );
     };

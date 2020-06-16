@@ -39,7 +39,7 @@ h2 {
     max-width: 300px;
     margin-left: auto;
     margin-right:  auto;
-    background-color: #aaa;
+    background-color: #ddd;
 }
 
 .demochorelist {
@@ -47,4 +47,9 @@ h2 {
     flex-direction: row;
     flex-wrap: wrap;
     list-style: none;
+}
+
+.demofooter {
+    text-align: center;
+    background-color: #aaa;
 }
