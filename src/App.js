@@ -124,7 +124,7 @@ export default class App extends React.Component {
             <Route
               exact
               path={'/manage'}
-              render={(props) => <Manage {...props} chores={this.state.chores} users={this.state.users} updateChores={this.updateChores} currentHousehold={this.state.currentHousehold}/>}
+              render={(props) => <Manage {...props} chores={this.state.chores} users={this.state.users} updateChores={this.updateChores} updateUsers={this.updateUsers} currentHousehold={this.state.currentHousehold}/>}
             />
             
             <Route

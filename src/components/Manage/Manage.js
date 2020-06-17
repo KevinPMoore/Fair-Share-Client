@@ -6,7 +6,18 @@ export default class Manage extends React.Component {
 
     //use props passed from app
 
-    //remove user button doesnt do anything yet
+    removeUser = (ev) => {
+        let idToRemove = parseInt(ev.target.id);
+        let newUsers = this.props.users.filter(user => user.id !==idToRemove);
+        this.props.updateUsers(newUsers);
+    };
+
+    removeChore = (ev) => {
+        let idToRemove = parseInt(ev.target.id);
+        let newChores = this.props.chores.filter(chore => this.props.chores.indexOf(chore) !== idToRemove);
+        this.props.updateChores(newChores);
+    }
+
     renderUsers = (users) => {
         let usersToRender = users.map(user =>
                 <li
@@ -14,18 +25,24 @@ export default class Manage extends React.Component {
                    id={user.id} 
                    className='manageuser'
                 >
-                    <p className='manageusername'>
+                    <p 
+                        className='manageusername'
+                    >
                         {user.username}
                     </p>
                     <button
                         className='manageuserbutton'
+                        id={user.id}
+                        onClick={this.removeUser}
                     >
                         Remove User
                     </button>
                 </li>
         );
         return(
-            <ul className='manageuserlist'>
+            <ul 
+                className='manageuserlist'
+            >
                 {usersToRender}
             </ul>
         );
@@ -38,18 +55,24 @@ export default class Manage extends React.Component {
                 id={chores.indexOf(chore)}
                 className='managechore'
             >
-                <p className='managechorename'>
+                <p 
+                    className='managechorename'
+                >
                     {chore}    
                 </p>
                 <button
+                    id={chores.indexOf(chore)}
                     className='managechorebutton'
+                    onClick={this.removeChore}
                 >
                     Remove Chore
                 </button>
             </li>
         );
         return(
-            <ul className='managechorelist'>
+            <ul 
+                className='managechorelist'
+            >
                 {choresToRender}
             </ul>
         );
@@ -57,20 +80,26 @@ export default class Manage extends React.Component {
     
     render() {
         return(
-            <div className='manage'>
+            <div 
+                className='manage'
+            >
                 <h2>
                    {this.props.currentHousehold}
                 </h2>
                 <h3>
                     #1234
                 </h3>
-                <div className='manageusers'>
+                <div 
+                    className='manageusers'
+                >
                     <span>
                         Users
                     </span>
                     {this.renderUsers(this.props.users)}
                 </div>
-                <div className='managechores'>
+                <div 
+                    className='managechores'
+                >
                     <span>
                         Chores
                     </span>
