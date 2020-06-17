@@ -1,0 +1,57 @@
+.manage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.manageuser {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    min-height: 80px;
+    background-color: #bbb;
+}
+
+.manageuser:nth-child(even) {
+    background-color: #ddd;
+}
+
+.manageusername {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 8px;
+}
+
+.manageuserbutton {
+    height: 40px;
+    width: 60px;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 8px;
+}
+
+.managechore {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    min-height: 80px;
+    background-color: #bbb;
+}
+
+.managechore:nth-child(even) {
+    background-color: #ddd;
+}
+
+.managechorename {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 8px;
+}
+
+.managechorebutton {
+    height: 40px;
+    width: 60px;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 8px;
+}

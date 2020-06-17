@@ -1,0 +1,56 @@
+.addchore {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.choreitem {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    min-height: 80px;
+    background-color: #bbb;
+}
+
+.choreitem:nth-child(even) {
+    background-color: #ddd;
+}
+
+.addchorename {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 8px;
+}
+
+.addchorebutton {
+    height: 40px;
+    width: 60px;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 8px;
+}
+
+.addchoreform {
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    background-color: #aaa;
+}
+
+.chorenamelabel {
+    text-align: center;
+}
+
+.chorename {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.newchorebutton {
+    width: 60px;
+    height: 40px;
+    margin-left: auto;
+    margin-right: auto;
+}

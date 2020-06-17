@@ -86,7 +86,9 @@ export default class Manage extends React.Component {
                 <h2>
                    {this.props.currentHousehold}
                 </h2>
-                <h3>
+                <h3
+                    className='householdid'
+                >
                     #1234
                 </h3>
                 <div 

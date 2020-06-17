@@ -16,7 +16,11 @@ export default class AddChore extends React.Component {
                 key={chores.indexOf(chore)}
                 id={chores.indexOf(chore)}
             >
-                {chore}
+                <p
+                    className='addchorename'
+                >
+                    {chore}
+                </p>
                 <button
                     className='addchorebutton'
                 >
@@ -56,14 +60,17 @@ export default class AddChore extends React.Component {
                     className='addchoreform'
                 >
                     <label
+                        className='chorenamelabel'
                         htmlFor='chorename'
                     >
                         Chore name
                     </label>
                     <input
-                    type='text'
-                    placeholder='swab the deck'
-                    required
+                        className='chorename'
+                        id='chorename'
+                        type='text'
+                        placeholder='swab the deck'
+                        required
                     >
                     </input>
                     <button
