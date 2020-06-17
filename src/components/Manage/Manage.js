@@ -10,7 +10,7 @@ export default class Manage extends React.Component {
         return(
             <div className='manage'>
                 <h2>
-                    My Household
+                   {this.props.currentHousehold}
                 </h2>
                 <h3>
                     #1234

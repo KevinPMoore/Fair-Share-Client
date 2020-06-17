@@ -69,7 +69,7 @@ export default class Demo extends React.Component {
                 <ul className='demochorelist'>
                     {choreList}
                 </ul>
-            )
+            );
     };
 
     renderUserButtons = (users, chore) => {
