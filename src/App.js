@@ -19,7 +19,8 @@ export default class App extends React.Component {
     userId: 0,
     users: [],
     chores: [],
-    households: ['My House']
+    households: ['My House'],
+    currentHousehold: 'My House'
   };
 
   updateLoggedIn = () => {
@@ -52,9 +53,15 @@ export default class App extends React.Component {
     });
   };
 
-  updateHouseholds = (house) => {
+  updateCurrentHousehold = (house) => {
     this.setState({
-      households: house
+      currentHousehold: house
+    });
+  };
+
+  addHousehold = (house) => {
+    this.setState({
+      households: this.state.households.concat(house)
     });
   };
 
@@ -105,13 +112,13 @@ export default class App extends React.Component {
             <Route
               exact
               path={'/userhome'}
-              render={(props) => <UserHome {...props} userName={this.state.userName} households={this.state.households} updateHouseholds={this.updateHouseholds}/>}
+              render={(props) => <UserHome {...props} userName={this.state.userName} households={this.state.households} addHousehold={this.addHousehold} updateCurrentHousehold={this.updateCurrentHousehold}/>}
             />
 
             <Route
               exact
               path={'/household'}
-              render={(props) => <Household {...props} chores={this.state.chores} users={this.state.users} updateChores={this.updateChores}/>}
+              render={(props) => <Household {...props} chores={this.state.chores} users={this.state.users} currentHousehold={this.state.currentHousehold}/>}
             />
 
             <Route

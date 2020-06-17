@@ -59,8 +59,6 @@ export default class Demo extends React.Component {
             <li 
                 id={chores.indexOf(chore)}
                 className='demochore'
-                draggable='true'
-                onDragStart={this.handleDrag}
                 key={chores.indexOf(chore)}
             >
                 {chore}

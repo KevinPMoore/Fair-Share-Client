@@ -13,9 +13,11 @@ export default class Household extends React.Component {
         return(
             <div className='household'>
                 <h2>
-                    My Household
+                    {this.props.currentHousehold}
                 </h2>
-                <h3>
+                <h3
+                    className='householdid'
+                >
                     #1234
                 </h3>
             </div>

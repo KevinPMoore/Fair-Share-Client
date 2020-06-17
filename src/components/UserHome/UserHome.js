@@ -10,6 +10,7 @@ import './UserHome.css';
 
 export default class UserHome extends React.Component {
     state = {
+        householdName: '',
         join: 'collapsed',
         create: 'collapsed'
     };
@@ -38,12 +39,37 @@ export default class UserHome extends React.Component {
         };
     };
 
-    //finish here
+    updateHouseholdName = (ev) => {
+        this.setState({
+            householdName: ev.target.value
+        });
+    };
+
+    addHousehold = (ev) => {
+        ev.preventDefault();
+        this.props.addHousehold(this.state.householdName);
+    };
+
     renderHouseholds = (households) => {
         let householdList = households.map(house =>
-            <li>
-                Hi
+            <li
+                id={households.indexOf(house)}
+                className='householdlink'
+                key={households.indexOf(house)}
+            >
+                <Link
+                    to='/household'
+                    className='householdlink'
+                    onClick={() => this.props.updateCurrentHousehold(house)}
+                >
+                  {house}  
+                </Link>
             </li>
+        );
+        return(
+            <ul className='householdlist'>
+                {householdList}
+            </ul>
         )
     }
 
@@ -54,12 +80,7 @@ export default class UserHome extends React.Component {
                 <h2>
                     {this.props.userName || 'TestGuy'}
                 </h2>
-                <Link
-                    to='/household'
-                    className='householdlink'
-                >
-                    My Household
-                </Link>
+                {this.renderHouseholds(this.props.households)}
                 <button
                     className='joinhouseholdbutton'
                     onClick={this.updatedJoin}
@@ -69,6 +90,7 @@ export default class UserHome extends React.Component {
                 <div className={this.state.join}>
                     <form
                         className='joinhouseholdform'
+                        onSubmit={this.addHousehold}
                     >
                         <label
                             className='userhomelabel'
@@ -80,6 +102,7 @@ export default class UserHome extends React.Component {
                             type='text'
                             id='joinhouseholdname'
                             placeholder='My House'
+                            onChange={this.updateHouseholdName}
                             required
                         >
                         </input>
@@ -111,6 +134,7 @@ export default class UserHome extends React.Component {
                 <div className={this.state.create}>
                     <form
                         className='createhouseholdform'
+                        onSubmit={this.addHousehold}
                     >
                         <label
                             className='createhouseholdnamelabel'
@@ -123,6 +147,7 @@ export default class UserHome extends React.Component {
                             id='createhouseholdname'
                             placeholder='My House'
                             required
+                            onChange={this.updateHouseholdName}
                         >
                         </input>
                         <button
