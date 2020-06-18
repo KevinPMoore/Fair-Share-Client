@@ -45,8 +45,15 @@ export default class UserHome extends React.Component {
         });
     };
 
-    addHousehold = (ev) => {
+    joinHousehold = (ev) => {
         ev.preventDefault();
+        this.updatedJoin();
+        this.props.addHousehold(this.state.householdName);
+    };
+
+    createHousehold = (ev) => {
+        ev.preventDefault();
+        this.updatedCreate();
         this.props.addHousehold(this.state.householdName);
     };
 
@@ -90,7 +97,7 @@ export default class UserHome extends React.Component {
                 <div className={this.state.join}>
                     <form
                         className='joinhouseholdform'
-                        onSubmit={this.addHousehold}
+                        onSubmit={this.joinHousehold}
                     >
                         <label
                             className='userhomelabel'
@@ -134,7 +141,7 @@ export default class UserHome extends React.Component {
                 <div className={this.state.create}>
                     <form
                         className='createhouseholdform'
-                        onSubmit={this.addHousehold}
+                        onSubmit={this.createHousehold}
                     >
                         <label
                             className='createhouseholdnamelabel'
