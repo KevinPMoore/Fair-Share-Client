@@ -1,12 +1,37 @@
 import React from 'react';
 import Store from '../../store';
-import { Link } from 'react-router-dom';
 import './AddChore.css';
 
 export default class AddChore extends React.Component {
     state = {
         baseChores: [],
-        baseUsers: []
+        baseUsers: [],
+        confirmationModal: 'hide',
+        duplicateModal: 'hide'
+    };
+
+    updateConfirmationModal = () => {
+        if(this.state.confirmationModal === 'hide') {
+            this.setState({
+                confirmationModal: 'modal'
+            })
+        } else {
+            this.setState({
+                confirmationModal: 'hide'
+            })
+        };
+    };
+
+    updateDuplicateModal = () => {
+        if(this.state.duplicateModal === 'hide') {
+            this.setState({
+                duplicateModal: 'modal'
+            })
+        } else {
+            this.setState({
+                duplicateModal: 'hide'
+            })
+        };
     };
 
     renderAllChores = (chores) => {
@@ -23,6 +48,8 @@ export default class AddChore extends React.Component {
                 </p>
                 <button
                     className='addchorebutton'
+                    value={chore}
+                    onClick={this.handleAddChore}
                 >
                     Add
                 </button>
@@ -34,10 +61,18 @@ export default class AddChore extends React.Component {
             >
                 {choresList}
             </ul>
-        )
+        );
     };
 
-    //use props passed by app
+    handleAddChore = (ev) => {
+        let choreToAdd = ev.target.value;
+        if(!this.props.chores.includes(choreToAdd)) {
+            this.props.updateChores(this.props.chores.concat(choreToAdd))
+            this.updateConfirmationModal();
+        } else {
+            this.updateDuplicateModal();
+        };
+    };
 
     componentDidMount() {
         this.setState({
@@ -79,7 +114,31 @@ export default class AddChore extends React.Component {
                     >
                         Add new chore
                     </button>
-            </form>
+                </form>
+                <div className={this.state.confirmationModal}>
+                    <div className='addmodal'>
+                        <p>
+                            Chore added successfully!
+                        </p>
+                        <button
+                            onClick={this.updateConfirmationModal}
+                        >
+                            Ok
+                        </button>
+                    </div>
+                </div>
+                <div className={this.state.duplicateModal}>
+                    <div className='duplicatemodal'>
+                        <p>
+                            Your household already contains this core.
+                        </p>
+                        <button
+                            onClick={this.updateDuplicateModal}
+                        >
+                            Ok
+                        </button>
+                    </div>
+                </div>
             </div>
         )
     };
