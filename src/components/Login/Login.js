@@ -1,5 +1,6 @@
 import React from 'react';
 import TokenService from '../../services/token-service';
+import Store from '../../store';
 import './Login.css';
 
 export default class Login extends React.Component {
@@ -30,7 +31,13 @@ export default class Login extends React.Component {
     //some auth stuff
 
     handleFakeSubmit = (ev) => {
+        let newUser = {
+            id: (Store.storedUsers.length+1),
+            username: this.state.username,
+            chores: []
+        };
         ev.preventDefault();
+        Store.storedUsers.push(newUser);
         this.props.updateLoggedIn();
         this.props.updateUserName(this.state.username);
         this.handleLoginSuccess();

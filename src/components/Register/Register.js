@@ -1,5 +1,6 @@
 import React from 'react';
-import TokenService from '../../services/token-service'
+import TokenService from '../../services/token-service';
+import Store from '../../store';
 import './Register.css';
 
 export default class Register extends React.Component {
@@ -28,7 +29,13 @@ export default class Register extends React.Component {
     };
 
     handleFakeSubmit = (ev) => {
+        let newUser = {
+            id: (Store.storedUsers.length+1),
+            username: this.state.username,
+            chores: []
+        };
         ev.preventDefault();
+        Store.storedUsers.push(newUser);
         this.props.updateLoggedIn();
         this.props.updateUserName(this.state.username);
         this.handleRegisterSuccess();

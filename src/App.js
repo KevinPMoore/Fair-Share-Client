@@ -65,6 +65,12 @@ export default class App extends React.Component {
     });
   };
 
+  removeHousehold = (house) => {
+    this.setState({
+      households: this.state.households.filter(household => household !== house)
+    });
+  };
+
   componentDidMount() {
     this.updateChores(Store.storedChores);
     this.updateUsers(Store.storedUsers);
@@ -124,7 +130,7 @@ export default class App extends React.Component {
             <Route
               exact
               path={'/manage'}
-              render={(props) => <Manage {...props} chores={this.state.chores} users={this.state.users} updateChores={this.updateChores} updateUsers={this.updateUsers} currentHousehold={this.state.currentHousehold}/>}
+              render={(props) => <Manage {...props} chores={this.state.chores} users={this.state.users} userName={this.state.userName} currentHousehold={this.state.currentHousehold} updateChores={this.updateChores} removeHousehold={this.removeHousehold} updateUsers={this.updateUsers}/>}
             />
             
             <Route

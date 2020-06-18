@@ -3,20 +3,60 @@ import { Link } from 'react-router-dom';
 import './Manage.css';
 
 export default class Manage extends React.Component {
+    state = {
+        modal: 'hide'
+    };
+
+    updateModal = () => {
+        if(this.state.modal === 'hide') {
+            this.setState({
+                modal: 'modal'
+            })
+        } else {
+            this.setState({
+                modal: 'hide'
+            })
+        };
+    };
 
     //use props passed from app
 
     removeUser = (ev) => {
         let idToRemove = parseInt(ev.target.id);
         let newUsers = this.props.users.filter(user => user.id !==idToRemove);
+        let found = false;
+        for(let i = 0; i < newUsers.length; i++) {
+            console.log('loopin')
+            if(newUsers[i].username === this.props.userName) {
+                found = true;
+            }
+        };
+
+        console.log('found is ', found)
+        console.log('anti-found is ', !found)
+
+        if(found !== false) {
+            this.props.updateUsers(newUsers)
+        } else {
+            this.updateModal();
+        };
+    };
+
+    removeSelf = () => {
+        let userToRemove = this.props.username;
+        let newUsers = this.props.users.filter(user => user.username !== userToRemove);
+        const { location, history } = this.props;
+        const destination = (location.state || {}).from || '/userhome';
         this.props.updateUsers(newUsers);
+        this.props.removeHousehold(this.props.currentHousehold);
+        history.push(destination);
     };
 
     removeChore = (ev) => {
         let idToRemove = parseInt(ev.target.id);
         let newChores = this.props.chores.filter(chore => this.props.chores.indexOf(chore) !== idToRemove);
         this.props.updateChores(newChores);
-    }
+    };
 
     renderUsers = (users) => {
         let usersToRender = users.map(user =>
@@ -114,6 +154,25 @@ export default class Manage extends React.Component {
                             Add more
                         </button>
                     </Link>
+                </div>
+                <div className={this.state.modal}>
+                    <div className='managemodal'>
+                        <p>
+                            You are about to remove yourself from this household.  Is this what you mean to do?
+                        </p>
+                        <button
+                            className='manageconfirm'
+                            onClick={this.removeSelf}
+                        >
+                            Confirm
+                        </button>
+                        <button
+                            className='managecancel'
+                            onClick={this.updateModal}
+                        >
+                            Cancel
+                        </button>
+                    </div>
                 </div>
             </div>
         );
