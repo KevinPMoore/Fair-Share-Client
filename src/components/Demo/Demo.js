@@ -2,15 +2,16 @@ import React from 'react';
 import Store from '../../store';
 import './Demo.css';
 import { Link } from 'react-router-dom';
+import _ from 'lodash';
+
 
 export default class Demo extends React.Component {
     state = {
         assignedChores: [],
-        unassignedChores: Store.storedChores,
-        users: Store.storedUsers
+        unassignedChores: _.cloneDeep(Store.storedChores),
+        users: _.cloneDeep(Store.storedUsers)
     };
 
-    //updatedUserArray is length 1 instead of 2
     updateUserChores = (user, chore) => {
         let updatedUser = {
             id: user.id,
@@ -18,12 +19,14 @@ export default class Demo extends React.Component {
             chores: user.chores.concat(chore)
         };
 
-        let updatedUserArray = this.state.users.splice(this.state.users.indexOf(user), 1, updatedUser);
-        console.log('updatedUserArray is ', updatedUserArray)
+        let copyOfUsers = this.state.users;
+
+        copyOfUsers[copyOfUsers.indexOf(user)] = updatedUser;
 
         this.setState({
             assignedChores: this.state.assignedChores.concat(chore),
             unassignedChores: this.state.unassignedChores.filter(chores => chores !== chore),
+            users: copyOfUsers
         });
     };
 
@@ -106,14 +109,13 @@ export default class Demo extends React.Component {
         };
     };
 
-    //duplicates <li> items even though this sets state correctly
     handleUnassignAll = () => {
+        console.log('stored users ', Store.storedUsers)
         this.setState({
-            unassignedChores: Store.storedChores,
+            unassignedChores: _.cloneDeep(Store.storedChores),
             assignedChores: [],
-            users: Store.storedUsers
+            users: _.cloneDeep(Store.storedUsers)
         });
-        //this.renderUsers(this.state.users)
     };
 
     handleRandomize = (users) => {
@@ -169,8 +171,6 @@ export default class Demo extends React.Component {
 
     //TODOs:
     //chores can be dragged/dropped
-    //unassign resets chore list
-    //randomize assigns chores
     render() {
 
         return(
