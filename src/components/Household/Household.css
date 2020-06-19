@@ -32,3 +32,24 @@
 .householdusername {
     text-align: center;
 }
+
+.householduserchores {
+    background-color: violet;
+    min-height: 90%;
+}
+
+.householdchores {
+    display: flex;
+    flex-direction: column;
+    max-width: 300px;
+    margin-left: auto;
+    margin-right:  auto;
+    background-color: #ddd;
+}
+
+.householdchorelist {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    list-style: none;
+}

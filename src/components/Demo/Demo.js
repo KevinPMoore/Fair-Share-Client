@@ -6,18 +6,24 @@ import { Link } from 'react-router-dom';
 export default class Demo extends React.Component {
     state = {
         assignedChores: [],
-        unassignedChores: [],
+        unassignedChores: Store.storedChores,
+        users: Store.storedUsers
     };
 
+    //updatedUserArray is length 1 instead of 2
     updateUserChores = (user, chore) => {
+        let updatedUser = {
+            id: user.id,
+            username: user.username,
+            chores: user.chores.concat(chore)
+        };
+
+        let updatedUserArray = this.state.users.splice(this.state.users.indexOf(user), 1, updatedUser);
+        console.log('updatedUserArray is ', updatedUserArray)
+
         this.setState({
             assignedChores: this.state.assignedChores.concat(chore),
             unassignedChores: this.state.unassignedChores.filter(chores => chores !== chore),
-            [user.username]: {
-                id: user.id,
-                username: user.username,
-                chores: user.chores.push(chore)
-            }
         });
     };
 
@@ -76,7 +82,7 @@ export default class Demo extends React.Component {
         let buttons = users.map(user =>
             <button
                 key={user.username+user.id}
-                id={user.username}
+                id={user.id}
                 onClick={() => this.updateUserChores(user, chore)}
             >
                 {user.username}
@@ -102,22 +108,12 @@ export default class Demo extends React.Component {
 
     //duplicates <li> items even though this sets state correctly
     handleUnassignAll = () => {
-        const users = Store.storedUsers;
-        if(this.state.assignedChores.length !== 0) {
-            users.forEach(user =>
-                this.setState({
-                    [user.username]: {
-                        id: user.id,
-                        username: user.username,
-                        chores: []
-                    }
-                })
-            )
-            this.setState({
-                unassignedChores: Store.storedChores,
-                assignedChores: []
-            })
-        };
+        this.setState({
+            unassignedChores: Store.storedChores,
+            assignedChores: [],
+            users: Store.storedUsers
+        });
+        //this.renderUsers(this.state.users)
     };
 
     handleRandomize = (users) => {
@@ -157,7 +153,7 @@ export default class Demo extends React.Component {
 
         function distribute(users, chores) {
             for(let i = 0; i < users.length; i++) {
-                users[i].chores = chores[i]
+                users[i].chores = users[i].chores.concat(chores[i])
               }
               return users;
         };
@@ -165,28 +161,9 @@ export default class Demo extends React.Component {
         let usersWithChores = distribute(users, shuffledAndChunkedChores)
         console.log('users with chores are ', usersWithChores);
 
-        usersWithChores.forEach(user =>
-            this.setState({
-                [users.username]: user
-            })
-        );
-
         this.setState({
             assignedChores: this.state.assignedChores.concat(choresToRandomize),
             unassignedChores: []
-        });
-    };
-
-    componentDidMount() {
-        const users = Store.storedUsers;
-        users.forEach(user =>
-            this.setState({
-                [user.username]: user
-            })  
-        );
-
-        this.setState({
-            unassignedChores: Store.storedChores
         });
     };
 
@@ -195,24 +172,23 @@ export default class Demo extends React.Component {
     //unassign resets chore list
     //randomize assigns chores
     render() {
-        const users = Store.storedUsers;
 
         return(
             <div className='demo'>
                 <h2>
                     Demo House
                 </h2>
-                {this.renderUsers(users)}
+                {this.renderUsers(this.state.users)}
                 <section className='demochores'>
                     <span className='demovertical'>Chores</span>
-                    {this.renderChoreList(this.state.unassignedChores, users)}
+                    {this.renderChoreList(this.state.unassignedChores, this.state.users)}
                     <div className='demochorebuttons'>
                         <button
                             onClick={this.handleUnassignAll}
                         >
                             Unassign All
                         </button>
-                        {this.renderRandomizeButton(users)}
+                        {this.renderRandomizeButton(this.state.users)}
                     </div>
                 </section>
                 <footer
