@@ -105,17 +105,26 @@ export default class Household extends React.Component {
         });
     };
 
-    //not working, needs to remove chores from users
     handleUnassignAll = () => {
         console.log('users from props are ', this.props.users)
         console.log('chores from props are ', this.props.chores)
 
+        let newUsersArray = _.cloneDeep(this.props.users);
+        newUsersArray.map(user => 
+            user.chores = []
+        )
+
+        console.log('newUsersArray is ', newUsersArray)
+
         this.setState({
             unassignedChores: this.props.chores,
             assignedChores: [],
-        })
+        });
+
+        this.props.updateUsers(newUsersArray)
     };
 
+    //note respecting previously assigned chores
     handleRandomize = (users) => {
         let choresToRandomize = this.state.unassignedChores;
         console.log('unassigned chores to randomize are ', choresToRandomize);
@@ -153,7 +162,7 @@ export default class Household extends React.Component {
 
         function distribute(users, chores) {
             for(let i = 0; i < users.length; i++) {
-                users[i].chores = chores[i]
+                users[i].chores = users[i].chores.concat(chores[i])
               }
               return users;
         };
