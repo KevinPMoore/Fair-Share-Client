@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import _ from 'lodash';
 import './Household.css';
 
 export default class Household extends React.Component {
@@ -68,6 +69,7 @@ export default class Household extends React.Component {
             <button
                 key={user.username+user.id}
                 id={user.username}
+                onClick={() => this.handleAssignChore(user, chore)}
             >
                 {user.username}
             </button>
@@ -82,25 +84,37 @@ export default class Household extends React.Component {
         >
             Randomize
         </button>
-
-        console.log('unassignedChores lenth is ', this.state.unassignedChores.length);
-
         if(this.state.unassignedChores.length !== 0) {
             return randomizeButton;
         };
     };
 
     handleAssignChore = (user, chore) => {
-        //needs to assign the chore to a user first
+        let index = this.props.users.indexOf(user);
+        let newUsersArray = _.cloneDeep(this.props.users)
+        newUsersArray[index] = {
+            id: user.id,
+            username: user.username,
+            chores: user.chores.concat(chore)
+        }
+
+        this.props.updateUsers(newUsersArray)
         this.setState({
             assignedChores: this.state.assignedChores.concat(chore),
             unassignedChores: this.state.unassignedChores.filter(chores => chores !== chore),
-        })
-    }
+        });
+    };
 
+    //not working, needs to remove chores from users
     handleUnassignAll = () => {
+        console.log('users from props are ', this.props.users)
+        console.log('chores from props are ', this.props.chores)
 
-    }
+        this.setState({
+            unassignedChores: this.props.chores,
+            assignedChores: [],
+        })
+    };
 
     handleRandomize = (users) => {
         let choresToRandomize = this.state.unassignedChores;
@@ -189,7 +203,9 @@ export default class Household extends React.Component {
                     className='householdchores'
                 >
                     {this.renderChoreList(this.state.unassignedChores, this.props.users)}
-                    <button>
+                    <button
+                        onClick={this.handleUnassignAll}
+                    >
                         Unassign All
                     </button>
                     {this.renderRandomizeButton(users)}
