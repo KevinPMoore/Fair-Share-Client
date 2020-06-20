@@ -57,29 +57,62 @@ export default class UserHome extends React.Component {
         this.props.addHousehold(this.state.householdName);
     };
 
-    renderHouseholds = (households) => {
-        let householdList = households.map(house =>
+    renderHousehold = (household) => {
+        let householdList = 
             <li
-                id={households.indexOf(house)}
+                id={household}
                 className='householdlink'
-                key={households.indexOf(house)}
+                key={household}
             >
                 <Link
                     to='/household'
                     className='householdlink'
-                    onClick={() => this.props.updateCurrentHousehold(house)}
                 >
-                  {house}  
+                  {household}  
                 </Link>
-            </li>
-        );
+            </li>;
         return(
             <ul className='householdlist'>
                 {householdList}
             </ul>
-        )
-    }
+        );
+    };
 
+    renderJoinButton = () => {
+        let joinHouseholdButton = <button
+                className='joinhouseholdbutton'
+                onClick={this.updatedJoin}
+            >
+                Join Household
+            </button>;
+        if(this.props.households.length === 0) {
+            return joinHouseholdButton;
+        };
+    };
+
+    renderCreateButton = () => {
+        let createHouseholdButton = <button
+            className='createhouseholdbutton'
+            onClick={this.updatedJoin}
+        >
+            Join Household
+        </button>;
+        if(this.props.households.length === 0) {
+            return createHouseholdButton;
+        };
+    };
+
+    renderLeaveHouseButton = () => {
+        let leaveHouseButton = <button
+            className='leavehouseholdbutton'
+            onClick={() => this.props.addHousehold([])}
+        >
+            Leave Household
+        </button>;
+        if(this.props.households.length !== 0) {
+            return leaveHouseButton;
+        };
+    };
 
     render() {
         return(
@@ -87,13 +120,9 @@ export default class UserHome extends React.Component {
                 <h2>
                     {this.props.userName || 'TestGuy'}
                 </h2>
-                {this.renderHouseholds(this.props.households)}
-                <button
-                    className='joinhouseholdbutton'
-                    onClick={this.updatedJoin}
-                >
-                    Join Household
-                </button>
+                {this.renderHousehold(this.props.households)}
+                {this.renderLeaveHouseButton()}
+                {this.renderJoinButton()}
                 <div className={this.state.join}>
                     <form
                         className='joinhouseholdform'
@@ -132,12 +161,7 @@ export default class UserHome extends React.Component {
                         </button>
                     </form>
                 </div>
-                <button
-                    className='createhouseholdbutton'
-                    onClick={this.updatedCreate}
-                >
-                    Create Household
-                </button>
+                {this.renderCreateButton()}
                 <div className={this.state.create}>
                     <form
                         className='createhouseholdform'

@@ -61,7 +61,7 @@ export default class App extends React.Component {
 
   addHousehold = (house) => {
     this.setState({
-      households: this.state.households.concat(house)
+      households: house
     });
   };
 
