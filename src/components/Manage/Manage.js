@@ -19,21 +19,15 @@ export default class Manage extends React.Component {
         };
     };
 
-    //use props passed from app
-
     removeUser = (ev) => {
         let idToRemove = parseInt(ev.target.id);
         let newUsers = this.props.users.filter(user => user.id !==idToRemove);
         let found = false;
         for(let i = 0; i < newUsers.length; i++) {
-            console.log('loopin')
             if(newUsers[i].username === this.props.userName) {
                 found = true;
             }
         };
-
-        console.log('found is ', found)
-        console.log('anti-found is ', !found)
 
         if(found !== false) {
             this.props.updateUsers(newUsers)
@@ -53,6 +47,16 @@ export default class Manage extends React.Component {
     };
 
     removeChore = (ev) => {
+        let newUsersArray = [];
+        this.props.users.forEach(user => {
+            let updatedUser = {
+                id: user.id,
+                username: user.username,
+                chores: user.chores.filter(chore => chore !== ev.target.value)
+            };
+            newUsersArray.push(updatedUser);
+        });
+        this.props.updateUsers(newUsersArray);
         let idToRemove = parseInt(ev.target.id);
         let newChores = this.props.chores.filter(chore => this.props.chores.indexOf(chore) !== idToRemove);
         this.props.updateChores(newChores);
@@ -102,6 +106,7 @@ export default class Manage extends React.Component {
                 </p>
                 <button
                     id={chores.indexOf(chore)}
+                    value={chore}
                     className='managechorebutton'
                     onClick={this.removeChore}
                 >
