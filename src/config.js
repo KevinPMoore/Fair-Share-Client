@@ -1,4 +1,4 @@
 export default {
-    //API_ENDPOINT: 'tbd',
+    API_ENDPOINT: 'http://localhost:8000/api',
     TOKEN_KEY: 'fs-client-auth-token',
 };
