@@ -22,6 +22,22 @@ const FSChoreService = {
                 (!res.ok) ? res.json().then(e => Promise.reject(e)) : res.json()
             );
     },
+    postChore(name, householdid) {
+        return fetch(`${config.API_ENDPOINT}/chores`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${TokenService.getAuthToken()}`,
+            },
+            body: JSON.stringify({
+                chorename: name,
+                chorehousehold: householdid
+            })
+        })
+        .then(res =>
+            (!res.ok) ? res.json().then(e => Promise.reject(e)) : res.json()
+        );
+    },
     patchChore(id, choreuser, chorehousehold, chorename) {
         return fetch(`/${config.API_ENDPOINT}/chores/${id}`, {
             method: 'PATCH',

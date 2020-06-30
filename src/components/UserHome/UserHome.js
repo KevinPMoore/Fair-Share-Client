@@ -1,18 +1,28 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import HouseholdService from '../../services/households-api-service';
+import UserService from '../../services/users-api-service';
 import './UserHome.css';
-
-//this component needs to...
-//have forms expand/collapse
-//   button need to use setstate
-//link to household when clicked
-//fake creating a household
 
 export default class UserHome extends React.Component {
     state = {
-        householdName: '',
+        formname: '',
+        formnumber: null,
         join: 'collapsed',
-        create: 'collapsed'
+        create: 'collapsed',
+        householdname: null
+    };
+
+    updateFormname = (ev) => {
+        this.setState({
+            formname: ev.target.value
+        });
+    };
+
+    updateFormnumber = (ev) => {
+        this.setState({
+            formnumber: parseInt(ev.target.value)
+        });
     };
 
     updatedJoin = () => {
@@ -39,22 +49,32 @@ export default class UserHome extends React.Component {
         };
     };
 
-    updateHouseholdName = (ev) => {
-        this.setState({
-            householdName: ev.target.value
-        });
+    //patch user to set userhousehold to null
+    leaveHousehold = () => {
+
     };
 
+    //rework with api
     joinHousehold = (ev) => {
         ev.preventDefault();
         this.updatedJoin();
-        this.props.addHousehold(this.state.householdName);
+        //1) get request to households/${formnumber}
+        //1.5) if 404 then set and display an error
+        //2) compare res.householdname to this.state.formname
+        //3a) if they match, patch request to set user.userhousehold to formnumber
+        //3b) if they dont match set and display an error
     };
 
     createHousehold = (ev) => {
         ev.preventDefault();
         this.updatedCreate();
-        this.props.addHousehold(this.state.householdName);
+        HouseholdService.postHousehold(this.state.formname)
+            .then(res => {
+                this.setState({
+                    userhousehold: res.householdid
+                });
+                UserService.patchUser(this.state.userid, this.state.username, res.householdid, this.props.userchores);
+            });
     };
 
     renderHousehold = (household) => {
@@ -78,6 +98,7 @@ export default class UserHome extends React.Component {
         );
     };
 
+    //this button does nothing atm
     renderJoinButton = () => {
         let joinHouseholdButton = <button
                 className='joinhouseholdbutton'
@@ -85,32 +106,50 @@ export default class UserHome extends React.Component {
             >
                 Join Household
             </button>;
-        if(this.props.households.length === 0) {
-            return joinHouseholdButton;
-        };
+            //if(this.state.householdname === null) {
+                return joinHouseholdButton;
+            //};
     };
 
     renderCreateButton = () => {
         let createHouseholdButton = <button
             className='createhouseholdbutton'
-            onClick={this.updatedJoin}
+            onClick={this.updatedCreate}
         >
-            Join Household
+            Create Household
         </button>;
-        if(this.props.households.length === 0) {
+        if(this.state.householdname === null) {
             return createHouseholdButton;
         };
     };
 
+    //this button does nothing atm
     renderLeaveHouseButton = () => {
         let leaveHouseButton = <button
             className='leavehouseholdbutton'
-            onClick={() => this.props.addHousehold([])}
         >
             Leave Household
         </button>;
-        if(this.props.households.length !== 0) {
+        //if(this.state.householdname !==null) {
             return leaveHouseButton;
+        //};
+    };
+
+    componentDidMount() {
+        console.log('user object from props is ', this.props.user)
+        this.setState({
+            username: this.props.user.username,
+            userid: this.props.user.userid,
+            userhousehold: this.props.user.userhousehold
+        });
+        console.log('House object is ', HouseholdService.getHouseholdById(this.props.user.userhousehold))
+        if(this.props.user.userhousehold !== null) {
+            HouseholdService.getHouseholdById(this.props.user.userhousehold)
+            .then(res => {
+                this.setState({
+                    householdname: res.householdname
+                });
+            });
         };
     };
 
@@ -118,14 +157,15 @@ export default class UserHome extends React.Component {
         return(
             <div className='userhome'>
                 <h2>
-                    {this.props.userName || 'TestGuy'}
+                    {this.props.user.username || 'TestGuy'}
                 </h2>
-                {this.renderHousehold(this.props.households)}
+                {this.renderHousehold(this.state.householdname)}
                 {this.renderLeaveHouseButton()}
                 {this.renderJoinButton()}
                 <div className={this.state.join}>
                     <form
                         className='joinhouseholdform'
+                        //currently not working
                         onSubmit={this.joinHousehold}
                     >
                         <label
@@ -138,7 +178,7 @@ export default class UserHome extends React.Component {
                             type='text'
                             id='joinhouseholdname'
                             placeholder='My House'
-                            onChange={this.updateHouseholdName}
+                            onChange={this.updateFormname}
                             required
                         >
                         </input>
@@ -151,6 +191,7 @@ export default class UserHome extends React.Component {
                         <input
                             type='number'
                             id='joinhouseholdid'
+                            onChange={this.updateFormnumber}
                             required
                         >
                         </input>
@@ -165,6 +206,7 @@ export default class UserHome extends React.Component {
                 <div className={this.state.create}>
                     <form
                         className='createhouseholdform'
+                        //currently not working
                         onSubmit={this.createHousehold}
                     >
                         <label
@@ -178,7 +220,7 @@ export default class UserHome extends React.Component {
                             id='createhouseholdname'
                             placeholder='My House'
                             required
-                            onChange={this.updateHouseholdName}
+                            onChange={this.updateFormname}
                         >
                         </input>
                         <button

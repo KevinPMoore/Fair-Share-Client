@@ -1,6 +1,6 @@
 import React from 'react';
 import TokenService from '../../services/token-service';
-import Store from '../../store';
+import AuthService from '../../services/auth-api-service';
 import './Login.css';
 
 export default class Login extends React.Component {
@@ -28,19 +28,30 @@ export default class Login extends React.Component {
         history.push(destination);
     };
 
-    //some auth stuff
-
-    handleFakeSubmit = (ev) => {
-        let newUser = {
-            id: (Store.storedUsers.length+1),
-            username: this.state.username,
-            chores: []
-        };
+    handleSubmitJTWAuth = ev => {
         ev.preventDefault();
-        Store.storedUsers.push(newUser);
-        this.props.updateLoggedIn();
-        this.props.updateUserName(this.state.username);
-        this.handleLoginSuccess();
+        this.setState({
+            error: null
+        });
+        const { username, password } = this.state;
+
+        AuthService.postLogin({
+            username: username,
+            password: password
+        })
+        .then(res => {
+            TokenService.saveAuthToken(res.authToken)
+            return res.user
+        })
+        .then(user => {
+            this.props.setUser(user)
+            this.handleLoginSuccess()
+        })
+        .catch(res => {
+            this.setState({
+                error: res.error
+            })
+        });
     };
 
     render() {
@@ -48,8 +59,7 @@ export default class Login extends React.Component {
         return(
             <form
                 className='registerform'
-                //some on submit for auth
-                onSubmit={this.handleFakeSubmit}
+                onSubmit={this.handleSubmitJTWAuth}
             >
                 <div className='alert'>
                     {error && <p className='red'>{error}</p>}

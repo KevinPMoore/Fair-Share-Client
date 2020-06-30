@@ -9,18 +9,14 @@ import UserHome from './components/UserHome/UserHome';
 import Household from './components/Household/Household';
 import Manage from './components/Manage/Manage';
 import AddChore from './components/AddChore/AddChore';
-import Store from './store';
+import PublicOnlyRoute from './Utils/PublicRoute';
+import PrivateOnlyRoute from './Utils/PrivateRoute';
 import './App.css';
 
 export default class App extends React.Component {
   state = {
     loggedIn: false,
-    userName: '',
-    userId: 0,
-    users: [],
-    chores: [],
-    households: ['My House'],
-    currentHousehold: 'My House'
+    user: null
   };
 
   updateLoggedIn = () => {
@@ -29,54 +25,13 @@ export default class App extends React.Component {
     });
   };
 
-  updateUserName = (name) => {
+  setUser = (user) => {
     this.setState({
-      userName: name
+      user: user
     });
   };
 
-  updateUserId = (id) => {
-    this.setState({
-      userId: id
-    });
-  };
-
-  updateUsers = (users) => {
-    this.setState({
-      users: users
-    });
-  };
-
-  updateChores = (chores) => {
-    this.setState({
-      chores: chores
-    });
-  };
-
-  updateCurrentHousehold = (house) => {
-    this.setState({
-      currentHousehold: house
-    });
-  };
-
-  addHousehold = (house) => {
-    this.setState({
-      households: house
-    });
-  };
-
-  removeHousehold = (house) => {
-    this.setState({
-      households: this.state.households.filter(household => household !== house)
-    });
-  };
-
-  componentDidMount() {
-    this.updateChores(Store.storedChores);
-    this.updateUsers(Store.storedUsers);
-  };
-
-  //needs login, register, userhome, household, manage and add routes
+  //needs 404 route
   //needs private vs public routes
   render() {
     return(
@@ -95,48 +50,45 @@ export default class App extends React.Component {
               component={Landing}
             />
 
-            <Route
-              exact
+            <PublicOnlyRoute
               path={'/login'}
-              render={(props) => <Login {...props} updateLoggedIn={this.updateLoggedIn} updateUserName={this.updateUserName}/>}
-              //fake loging in
+              component={Login}
+              setUser={this.setUser}
             />
 
-            <Route
-              exact
+            <PublicOnlyRoute
               path={'/register'}
-              render={(props) => <Register {...props} updateLoggedIn={this.updateLoggedIn} updateUserName={this.updateUserName}/>}
-              //fake registering
+              component={Register}
+              setUser={this.setUser}
             />
 
-            <Route
-              exact
+            <PublicOnlyRoute
               path={'/demo'}
-              render={(props) => <Demo {...props}/>}
+              component={Demo}
             />
 
-            <Route
-              exact
+            <PrivateOnlyRoute
               path={'/userhome'}
-              render={(props) => <UserHome {...props} userName={this.state.userName} households={this.state.households} addHousehold={this.addHousehold} updateCurrentHousehold={this.updateCurrentHousehold}/>}
+              component={UserHome}
+              user={this.state.user}
             />
 
             <Route
               exact
               path={'/household'}
-              render={(props) => <Household {...props} chores={this.state.chores} users={this.state.users} currentHousehold={this.state.currentHousehold} updateUsers={this.updateUsers}/>}
+              render={(props) => <Household {...props} /*needs new props*//>}
             />
 
             <Route
               exact
               path={'/manage'}
-              render={(props) => <Manage {...props} chores={this.state.chores} users={this.state.users} userName={this.state.userName} currentHousehold={this.state.currentHousehold} updateChores={this.updateChores} removeHousehold={this.removeHousehold} updateUsers={this.updateUsers}/>}
+              render={(props) => <Manage {...props} /*needs new props*//>}
             />
             
             <Route
               exact
               path={'/addchore'}
-              render={(props) => <AddChore {...props} chores={this.state.chores} users={this.state.users} updateChores={this.updateChores}/>}
+              render={(props) => <AddChore {...props} /*needs new props*//>}
             />
 
           </Switch>

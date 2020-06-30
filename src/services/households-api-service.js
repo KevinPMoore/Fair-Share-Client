@@ -22,6 +22,21 @@ const FSHouseholdService = {
                 (!res.ok) ? res.json().then(e => Promise.reject(e)) : res.json()
             );
     },
+    postHousehold(householdname) {
+        return fetch(`${config.API_ENDPOINT}/households`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${TokenService.getAuthToken()}`,
+            },
+            body: JSON.stringify({
+                householdname: householdname
+            })
+        })
+            .then(res =>
+                (!res.ok) ? res.json().then(e => Promise.reject(e)) : res.json()
+            );
+    },
     patchHousehold(id, householdname) {
         return fetch(`${config.API_ENDPOINT}/households/${id}`, {
             method: 'PATCH',

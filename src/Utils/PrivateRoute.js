@@ -1,6 +1,6 @@
-  import React from 'react';
+import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import TokenService from '../../services/token-service';
+import TokenService from '../services/token-service';
 
 //Checks for auth token so users who are not logged in cannot access the Game or Account components
 export default function PrivateRoute({ component, ...props }) {
@@ -10,7 +10,7 @@ export default function PrivateRoute({ component, ...props }) {
       {...props}
       render={componentProps => (
         TokenService.hasAuthToken()
-          ? <Component {...componentProps} bank={props.bank} updateBank={props.updateBank} updateLoggedIn={props.updateLoggedIn} user={props.user} userId={props.userId}/>
+          ? <Component {...componentProps} user={props.user}/*props go here*//>
           : <Redirect
               to={{
                 pathname: '/login',

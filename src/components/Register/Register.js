@@ -1,6 +1,6 @@
 import React from 'react';
 import TokenService from '../../services/token-service';
-import Store from '../../store';
+import AuthService from '../../services/auth-api-service';
 import './Register.css';
 
 export default class Register extends React.Component {
@@ -22,31 +22,50 @@ export default class Register extends React.Component {
         });
     };
 
+    handleRegisterSubmit = (ev) => {
+        ev.preventDefault();
+        this.setState({
+            error: null
+        });
+        const { username, password } = this.state;
+
+        AuthService.postUser({
+            username: username,
+            password: password
+        })
+        .then(user => {
+            return AuthService.postLogin({
+                username: username,
+                password: password
+            })
+        })
+        .then(res => {
+            TokenService.saveAuthToken(res.authToken)
+            return res.user
+        })
+        .then(user => {
+            this.props.setUser(user)
+            this.handleRegisterSuccess()
+        })
+        .catch(res => {
+            this.setState({
+                error: res.error
+            });
+        });
+    };
+
     handleRegisterSuccess = () => {
         const { location, history } = this.props;
         const destination = (location.state || {}).from || '/userhome';
         history.push(destination);
     };
 
-    handleFakeSubmit = (ev) => {
-        let newUser = {
-            id: (Store.storedUsers.length+1),
-            username: this.state.username,
-            chores: []
-        };
-        ev.preventDefault();
-        Store.storedUsers.push(newUser);
-        this.props.updateLoggedIn();
-        this.props.updateUserName(this.state.username);
-        this.handleRegisterSuccess();
-    };
-    //some auth stuff
     render() {
         const error = this.state.error;
         return(
             <form
                 className='registerform'
-                //some on submit for auth
+                onSubmit={this.handleRegisterSubmit}
             >   
                 <p className='passwordrules'>
                     To register please enter a username that is at least 9 characters long
@@ -93,7 +112,6 @@ export default class Register extends React.Component {
                 <button
                     id='registersubmit'
                     type='submit'
-                    onClick={this.handleFakeSubmit}
                 >
                     Register
                 </button>
