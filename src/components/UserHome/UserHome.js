@@ -7,10 +7,11 @@ import './UserHome.css';
 export default class UserHome extends React.Component {
     state = {
         formname: '',
-        formnumber: null,
+        formnumber: '',
         join: 'collapsed',
         create: 'collapsed',
-        householdname: null
+        householdname: null,
+        error: null
     };
 
     updateFormname = (ev) => {
@@ -49,20 +50,41 @@ export default class UserHome extends React.Component {
         };
     };
 
-    //patch user to set userhousehold to null
     leaveHousehold = () => {
-
+        UserService.patchUser(this.state.userid, this.state.username, null, this.props.user.userchores);
+        this.setState({
+            householdname: null,
+            userhousehold: null
+        });
     };
 
-    //rework with api
     joinHousehold = (ev) => {
+        let nameToJoin = this.state.formname;
+        let numberToJoin = this.state.formnumber;
         ev.preventDefault();
         this.updatedJoin();
-        //1) get request to households/${formnumber}
-        //1.5) if 404 then set and display an error
-        //2) compare res.householdname to this.state.formname
-        //3a) if they match, patch request to set user.userhousehold to formnumber
-        //3b) if they dont match set and display an error
+        HouseholdService.getHouseholdById(numberToJoin)
+        .then(res => {
+            if(res.householdname === nameToJoin) {
+                UserService.patchUser(this.state.userid, this.state.username, res.householdid, this.props.user.userchores)
+                this.setState({
+                    householdname: res.householdname
+                })
+            } else {
+                this.setState({
+                    error: 'Incorrect Household name or id'
+                })
+            }
+        })
+        .catch(res => {
+            this.setState({
+                error: res.error
+            })
+        })
+        this.setState({
+            formname: '',
+            formnumber: ''
+        })
     };
 
     createHousehold = (ev) => {
@@ -71,10 +93,14 @@ export default class UserHome extends React.Component {
         HouseholdService.postHousehold(this.state.formname)
             .then(res => {
                 this.setState({
-                    userhousehold: res.householdid
+                    userhousehold: res.householdid,
+                    householdname: res.householdname
                 });
                 UserService.patchUser(this.state.userid, this.state.username, res.householdid, this.props.userchores);
             });
+        this.setState({
+            formname: ''
+        })
     };
 
     renderHousehold = (household) => {
@@ -98,7 +124,6 @@ export default class UserHome extends React.Component {
         );
     };
 
-    //this button does nothing atm
     renderJoinButton = () => {
         let joinHouseholdButton = <button
                 className='joinhouseholdbutton'
@@ -106,9 +131,9 @@ export default class UserHome extends React.Component {
             >
                 Join Household
             </button>;
-            //if(this.state.householdname === null) {
+            if(this.state.householdname === null) {
                 return joinHouseholdButton;
-            //};
+            };
     };
 
     renderCreateButton = () => {
@@ -123,26 +148,24 @@ export default class UserHome extends React.Component {
         };
     };
 
-    //this button does nothing atm
     renderLeaveHouseButton = () => {
         let leaveHouseButton = <button
             className='leavehouseholdbutton'
+            onClick={this.leaveHousehold}
         >
             Leave Household
         </button>;
-        //if(this.state.householdname !==null) {
+        if(this.state.householdname !==null) {
             return leaveHouseButton;
-        //};
+        };
     };
 
     componentDidMount() {
-        console.log('user object from props is ', this.props.user)
         this.setState({
             username: this.props.user.username,
             userid: this.props.user.userid,
             userhousehold: this.props.user.userhousehold
         });
-        console.log('House object is ', HouseholdService.getHouseholdById(this.props.user.userhousehold))
         if(this.props.user.userhousehold !== null) {
             HouseholdService.getHouseholdById(this.props.user.userhousehold)
             .then(res => {
@@ -154,11 +177,15 @@ export default class UserHome extends React.Component {
     };
 
     render() {
+        const error = this.state.error;
         return(
             <div className='userhome'>
                 <h2>
                     {this.props.user.username || 'TestGuy'}
                 </h2>
+                <div className='alert'>
+                    {error && <p className='red'>{error}</p>}
+                </div>
                 {this.renderHousehold(this.state.householdname)}
                 {this.renderLeaveHouseButton()}
                 {this.renderJoinButton()}
@@ -178,6 +205,7 @@ export default class UserHome extends React.Component {
                             type='text'
                             id='joinhouseholdname'
                             placeholder='My House'
+                            value={this.state.formname}
                             onChange={this.updateFormname}
                             required
                         >
@@ -191,6 +219,7 @@ export default class UserHome extends React.Component {
                         <input
                             type='number'
                             id='joinhouseholdid'
+                            value={this.state.formnumber}
                             onChange={this.updateFormnumber}
                             required
                         >
@@ -206,7 +235,6 @@ export default class UserHome extends React.Component {
                 <div className={this.state.create}>
                     <form
                         className='createhouseholdform'
-                        //currently not working
                         onSubmit={this.createHousehold}
                     >
                         <label
@@ -219,6 +247,7 @@ export default class UserHome extends React.Component {
                             type='text'
                             id='createhouseholdname'
                             placeholder='My House'
+                            value={this.state.formname}
                             required
                             onChange={this.updateFormname}
                         >
