@@ -10,7 +10,7 @@ export default function PrivateRoute({ component, ...props }) {
       {...props}
       render={componentProps => (
         TokenService.hasAuthToken()
-          ? <Component {...componentProps} user={props.user}/*props go here*//>
+          ? <Component {...componentProps} user={props.user} setHousehold={props.setHousehold} household={props.household}/*props go here*//>
           : <Redirect
               to={{
                 pathname: '/login',

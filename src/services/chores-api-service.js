@@ -39,7 +39,7 @@ const FSChoreService = {
         );
     },
     patchChore(id, choreuser, chorehousehold, chorename) {
-        return fetch(`/${config.API_ENDPOINT}/chores/${id}`, {
+        return fetch(`${config.API_ENDPOINT}/chores/${id}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',

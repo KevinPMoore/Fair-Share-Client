@@ -11,12 +11,14 @@ import Manage from './components/Manage/Manage';
 import AddChore from './components/AddChore/AddChore';
 import PublicOnlyRoute from './Utils/PublicRoute';
 import PrivateOnlyRoute from './Utils/PrivateRoute';
+import NotFound from './components/NotFound/NotFound';
 import './App.css';
 
 export default class App extends React.Component {
   state = {
     loggedIn: false,
-    user: null
+    user: null,
+    household: null
   };
 
   updateLoggedIn = () => {
@@ -28,6 +30,12 @@ export default class App extends React.Component {
   setUser = (user) => {
     this.setState({
       user: user
+    });
+  };
+
+  setHousehold = (household) => {
+    this.setState({
+      household: household
     });
   };
 
@@ -71,24 +79,32 @@ export default class App extends React.Component {
               path={'/userhome'}
               component={UserHome}
               user={this.state.user}
+              setHousehold={this.setHousehold}
             />
 
-            <Route
-              exact
+            <PrivateOnlyRoute
               path={'/household'}
-              render={(props) => <Household {...props} /*needs new props*//>}
+              component={Household}
+              user={this.state.user}
+              household={this.state.household}
             />
 
-            <Route
-              exact
+            <PrivateOnlyRoute
               path={'/manage'}
-              render={(props) => <Manage {...props} /*needs new props*//>}
+              component={Manage}
+              user={this.state.user}
+              household={this.state.household}
             />
             
-            <Route
-              exact
+            <PrivateOnlyRoute
               path={'/addchore'}
-              render={(props) => <AddChore {...props} /*needs new props*//>}
+              component={AddChore}
+              user={this.state.user}
+              household={this.state.household}
+            />
+
+            <Route
+              component={NotFound}
             />
 
           </Switch>

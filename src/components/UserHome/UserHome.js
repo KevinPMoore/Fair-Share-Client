@@ -66,25 +66,26 @@ export default class UserHome extends React.Component {
         HouseholdService.getHouseholdById(numberToJoin)
         .then(res => {
             if(res.householdname === nameToJoin) {
-                UserService.patchUser(this.state.userid, this.state.username, res.householdid, this.props.user.userchores)
+                UserService.patchUser(this.state.userid, this.state.username, res.householdid, this.props.user.userchores);
+                this.props.setHousehold(res);
                 this.setState({
                     householdname: res.householdname
-                })
+                });
             } else {
                 this.setState({
                     error: 'Incorrect Household name or id'
-                })
-            }
+                });
+            };
         })
         .catch(res => {
             this.setState({
                 error: res.error
             })
-        })
+        });
         this.setState({
             formname: '',
             formnumber: ''
-        })
+        });
     };
 
     createHousehold = (ev) => {
@@ -92,6 +93,7 @@ export default class UserHome extends React.Component {
         this.updatedCreate();
         HouseholdService.postHousehold(this.state.formname)
             .then(res => {
+                this.props.setHousehold(res);
                 this.setState({
                     userhousehold: res.householdid,
                     householdname: res.householdname
@@ -100,7 +102,7 @@ export default class UserHome extends React.Component {
             });
         this.setState({
             formname: ''
-        })
+        });
     };
 
     renderHousehold = (household) => {
@@ -169,6 +171,7 @@ export default class UserHome extends React.Component {
         if(this.props.user.userhousehold !== null) {
             HouseholdService.getHouseholdById(this.props.user.userhousehold)
             .then(res => {
+                this.props.setHousehold(res);
                 this.setState({
                     householdname: res.householdname
                 });
@@ -192,7 +195,6 @@ export default class UserHome extends React.Component {
                 <div className={this.state.join}>
                     <form
                         className='joinhouseholdform'
-                        //currently not working
                         onSubmit={this.joinHousehold}
                     >
                         <label
