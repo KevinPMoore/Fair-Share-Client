@@ -1,9 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import UserService from '../../services/users-api-service';
 import HouseholdService from '../../services/households-api-service';
 import ChoreService from '../../services/chores-api-service';
-import _ from 'lodash';
 import './Household.css';
 
 export default class Household extends React.Component {
@@ -11,16 +9,26 @@ export default class Household extends React.Component {
         allHouseholdChores: [],
         usersArray: [],
         unassignedChores: [],
-        toggle: false
     };
 
-    updateToggle = () => {
-        this.setState({
-            toggle: !this.state.toggle
+    setStateFromServer = () => {
+        HouseholdService.getHouseholdUsers(this.props.household.householdid)
+        .then(res => {
+            this.setState({
+                usersArray: res
+            });
+        });
+
+        HouseholdService.getHouseholdChores(this.props.household.householdid)
+        .then(res => {
+            let unassignedChores = res.filter(chore => chore.choreuser === null)
+            this.setState({
+                allHouseholdChores: res,
+                unassignedChores: unassignedChores
+            });
         });
     };
 
-    //needs partial rework for renderUserChores still not rendering
     renderUsers = (users) => {
         let renderUsers = users.map(user => 
                 <div 
@@ -32,7 +40,7 @@ export default class Household extends React.Component {
                     <ul 
                         className='householduserchores'
                     >
-                        {this.getUserChores(user.userid)}
+                        {this.renderUserChores(user.userid)}
                     </ul>
                 </div>
         );
@@ -43,34 +51,16 @@ export default class Household extends React.Component {
         );
     };
 
-    //START HERE
-    //this is passing the correct information to renderUserChores
-    getUserChores = (userid) => {
-        console.log('getUserChores ran')
-        let userChores = [];
-        UserService.getUserChores(userid)
-        .then(chores => {
-            chores.forEach(chore => userChores.push(chore))
-        })
-        .then(res => {
-            console.log('calling renderUserChores with ', userChores)
-            this.renderUserChores(userChores)
-        });
-    };
-
-    //START HERE
-    //this is returning the correct value but nothing is rendering
-    renderUserChores = (chores) => {
-        console.log('renderUserChores ran')
-        let choresToRender = chores.map(chore =>
-            <li 
+    renderUserChores = (userid) => {
+        let assignedChores = this.state.allHouseholdChores.filter(chore => chore.choreuser === userid);
+        let choresToRender = assignedChores.map(chore =>
+            <li
                 key={chore.choreid}
             >
                 {chore.chorename}
             </li>
-            );
-        console.log('renderUserChores is returning ', choresToRender)
-        return(choresToRender)
+        );
+        return(choresToRender);
     };
 
     renderChoreList = (chores, users) => {
@@ -91,7 +81,6 @@ export default class Household extends React.Component {
             );
     };
 
-    //needs rework
     renderUserButtons = (users, chore) => {
         let buttons = users.map(user =>
             <button
@@ -105,49 +94,40 @@ export default class Household extends React.Component {
         return(buttons)
     };
 
-    //needs rework
-    renderRandomizeButton = (users) => {
+    //not hiding on unassignedChores.length === 0
+    renderRandomizeButton = (unassignedChores) => {
+        console.log('unassignedChores are ', unassignedChores)
+        let users = this.state.usersArray;
         let randomizeButton = 
         <button
             onClick={() => this.handleRandomize(users)}
         >
             Randomize
         </button>
-        if(this.state.unassignedChores.length !== 0) {
+        if(unassignedChores.length !== 0) {
             return randomizeButton;
         };
     };
 
-
-    //needs testing to confirm is working
+    //only working on second click?
     handleAssignChore = (user, chore) => {
         ChoreService.patchChore(chore.choreid, user.userid, chore.chorehousehold, chore.chorename)
         .then(
-            HouseholdService.getHouseholdChores(this.props.household.householdid)
-            .then(res => {
-                let unassignedChores = res.filter(chore => chore.choreuser !== null)
-                this.setState({
-                    unassignedChores: unassignedChores
-                });
-            })
+            this.setStateFromServer()
         );
     };
 
-    //needs rework
+    //only working on second click?
     handleUnassignAll = () => {
-        let newUsersArray = _.cloneDeep(this.props.users);
-        newUsersArray.map(user => 
-            user.chores = []
-        )
-
-        console.log('newUsersArray is ', newUsersArray)
-
-        this.setState({
-            unassignedChores: this.props.chores,
-            assignedChores: [],
+        let assignedChores = this.state.allHouseholdChores.filter(chore => chore.choreuser !== null);
+        console.log('assigned chores are ', assignedChores)
+        assignedChores.forEach(chore => {
+            console.log('patching ', chore.chorename)
+            ChoreService.patchChore(chore.choreid, null, chore.chorehousehold, chore.chorename)
+            .then(
+                this.setStateFromServer()
+            );
         });
-
-        this.props.updateUsers(newUsersArray)
     };
 
     //needs rework
@@ -205,21 +185,7 @@ export default class Household extends React.Component {
     };
 
     componentDidMount() {       
-        HouseholdService.getHouseholdUsers(this.props.household.householdid)
-        .then(res => {
-            this.setState({
-                usersArray: res
-            });
-        });
-
-        HouseholdService.getHouseholdChores(this.props.household.householdid)
-        .then(res => {
-            let unassignedChores = res.filter(chore => chore.choreuser === null)
-            this.setState({
-                allHouseholdChores: res,
-                unassignedChores: unassignedChores
-            });
-        });
+        this.setStateFromServer();
     };
 
 
@@ -252,7 +218,7 @@ export default class Household extends React.Component {
                     >
                         Unassign All
                     </button>
-                    {/*this.renderRandomizeButton(users)*/}
+                    {this.renderRandomizeButton(this.state.unassignedChores)}
                 </section>
             </div>
         )
