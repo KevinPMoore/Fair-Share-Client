@@ -94,9 +94,7 @@ export default class Household extends React.Component {
         return(buttons)
     };
 
-    //not hiding on unassignedChores.length === 0
     renderRandomizeButton = (unassignedChores) => {
-        console.log('unassignedChores are ', unassignedChores)
         let users = this.state.usersArray;
         let randomizeButton = 
         <button
@@ -120,9 +118,7 @@ export default class Household extends React.Component {
     //only working on second click?
     handleUnassignAll = () => {
         let assignedChores = this.state.allHouseholdChores.filter(chore => chore.choreuser !== null);
-        console.log('assigned chores are ', assignedChores)
         assignedChores.forEach(chore => {
-            console.log('patching ', chore.chorename)
             ChoreService.patchChore(chore.choreid, null, chore.chorehousehold, chore.chorename)
             .then(
                 this.setStateFromServer()
@@ -130,13 +126,10 @@ export default class Household extends React.Component {
         });
     };
 
-    //needs rework
+    //randomizing correctly but not rerendering correctly on first click?
     handleRandomize = (users) => {
         let choresToRandomize = this.state.unassignedChores;
-        console.log('unassigned chores to randomize are ', choresToRandomize);
-
         let chunkSize = Math.ceil(choresToRandomize.length / users.length);
-        console.log('chunkSize is ', chunkSize);
 
         function shuffle(array) {
             let returnArray = [];
@@ -150,7 +143,6 @@ export default class Household extends React.Component {
         };
 
         let shuffledChores = shuffle(choresToRandomize);
-        console.log('shuffledChores are ', shuffledChores);
 
         function chunk(array, size) {
             let returnArray = [];
@@ -162,26 +154,18 @@ export default class Household extends React.Component {
         };
 
         let chunkedChores = chunk(shuffledChores, chunkSize);
-        console.log('chunkedChores are ', chunkedChores);
-
         let shuffledAndChunkedChores = shuffle(chunkedChores);
 
-        function distribute(users, chores) {
-            for(let i = 0; i < users.length; i++) {
-                users[i].chores = users[i].chores.concat(chores[i])
-              }
-              return users;
+        function distributeChores(users, chores) {
+            for(let i = 0; i < chores.length; i ++) {
+                chores[i].forEach(chore => {
+                    ChoreService.patchChore(chore.choreid, users[i].userid, chore.chorehousehold, chore.chorename)
+                });
+            };
         };
 
-        let usersWithChores = distribute(users, shuffledAndChunkedChores)
-        console.log('users with chores are ', usersWithChores);
-
-        this.props.updateUsers(usersWithChores)
-
-        this.setState({
-            assignedChores: this.state.assignedChores.concat(choresToRandomize),
-            unassignedChores: []
-        });
+        distributeChores(users, shuffledAndChunkedChores)
+        this.setStateFromServer();
     };
 
     componentDidMount() {       

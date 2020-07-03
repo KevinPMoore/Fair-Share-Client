@@ -1,10 +1,14 @@
 import React from 'react';
+import HouseholdService from '../../services/households-api-service';
+import UserService from '../../services/users-api-service';
 import { Link } from 'react-router-dom';
 import './Manage.css';
 
 export default class Manage extends React.Component {
     state = {
-        modal: 'hide'
+        modal: 'hide',
+        choresArray: [],
+        usersArray: []
     };
 
     updateModal = () => {
@@ -19,6 +23,23 @@ export default class Manage extends React.Component {
         };
     };
 
+    setStateFromServer = () => {
+        HouseholdService.getHouseholdUsers(this.props.household.householdid)
+        .then(res => {
+            this.setState({
+                usersArray: res
+            });
+        });
+
+        HouseholdService.getHouseholdChores(this.props.household.householdid)
+        .then(res => {
+            this.setState({
+                choresArray: res
+            });
+        });
+    };
+
+    //rework
     removeUser = (ev) => {
         let idToRemove = parseInt(ev.target.id);
         let newUsers = this.props.users.filter(user => user.id !==idToRemove);
@@ -36,6 +57,7 @@ export default class Manage extends React.Component {
         };
     };
 
+    //rework
     removeSelf = () => {
         let userToRemove = this.props.username;
         let newUsers = this.props.users.filter(user => user.username !== userToRemove);
@@ -46,6 +68,7 @@ export default class Manage extends React.Component {
         history.push(destination);
     };
 
+    //rework
     removeChore = (ev) => {
         let newUsersArray = [];
         this.props.users.forEach(user => {
@@ -61,6 +84,7 @@ export default class Manage extends React.Component {
         let newChores = this.props.chores.filter(chore => this.props.chores.indexOf(chore) !== idToRemove);
         this.props.updateChores(newChores);
     };
+
 
     renderUsers = (users) => {
         let usersToRender = users.map(user =>
@@ -92,6 +116,8 @@ export default class Manage extends React.Component {
         );
     };
 
+    //START HERE
+    //rework or change arguments?
     renderChores = (chores) => {
         let choresToRender = chores.map(chore =>
             <li
@@ -122,6 +148,10 @@ export default class Manage extends React.Component {
             </ul>
         );
     };
+
+    componentDidMount() {
+        this.setStateFromServer();
+    };
     
     render() {
         return(
@@ -129,12 +159,12 @@ export default class Manage extends React.Component {
                 className='manage'
             >
                 <h2>
-                   {this.props.currentHousehold}
+                   {this.props.household.householdname}
                 </h2>
                 <h3
                     className='householdid'
                 >
-                    #1234
+                    {this.props.household.householdid}
                 </h3>
                 <div 
                     className='manageusers'
@@ -142,7 +172,7 @@ export default class Manage extends React.Component {
                     <span>
                         Users
                     </span>
-                    {this.renderUsers(this.props.users)}
+                    {this.renderUsers(this.state.usersArray)}
                 </div>
                 <div 
                     className='managechores'
@@ -150,7 +180,7 @@ export default class Manage extends React.Component {
                     <span>
                         Chores
                     </span>
-                    {this.renderChores(this.props.chores)}
+                    {this.renderChores(this.state.choresArray)}
                     <Link
                         to='/addchore'
                         className='addchorelink'
@@ -167,13 +197,13 @@ export default class Manage extends React.Component {
                         </p>
                         <button
                             className='manageconfirm'
-                            onClick={this.removeSelf}
+                            //onClick={this.removeSelf}
                         >
                             Confirm
                         </button>
                         <button
                             className='managecancel'
-                            onClick={this.updateModal}
+                            //onClick={this.updateModal}
                         >
                             Cancel
                         </button>
