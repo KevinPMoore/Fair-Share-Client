@@ -39,8 +39,6 @@ export default class App extends React.Component {
     });
   };
 
-  //needs 404 route
-  //needs private vs public routes
   render() {
     return(
      <div className='app'>
@@ -94,6 +92,7 @@ export default class App extends React.Component {
               component={Manage}
               user={this.state.user}
               household={this.state.household}
+              setHousehold={this.setHousehold}
             />
             
             <PrivateOnlyRoute

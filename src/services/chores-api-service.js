@@ -52,7 +52,7 @@ const FSChoreService = {
             })
         });
     },
-    deleteUser(id) {
+    deleteChore(id) {
         return fetch(`${config.API_ENDPOINT}/chores/${id}`, {
             method: 'DELETE',
             headers: {

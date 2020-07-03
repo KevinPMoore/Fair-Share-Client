@@ -1,6 +1,7 @@
 import React from 'react';
 import HouseholdService from '../../services/households-api-service';
 import UserService from '../../services/users-api-service';
+import ChoreService from '../../services/chores-api-service';
 import { Link } from 'react-router-dom';
 import './Manage.css';
 
@@ -8,7 +9,9 @@ export default class Manage extends React.Component {
     state = {
         modal: 'hide',
         choresArray: [],
-        usersArray: []
+        usersArray: [],
+        userToRemove: null,
+        warning:''
     };
 
     updateModal = () => {
@@ -23,7 +26,20 @@ export default class Manage extends React.Component {
         };
     };
 
+    updateUserToRemove = (userid) => {
+        this.setState({
+            userToRemove: userid
+        });
+    };
+
+    updateWarning = (user) => {
+        this.setState({
+            warning: `You are about to remove ${user.username} from ${this.props.household.householdname}.  Are you sure?`
+        });
+    };
+
     setStateFromServer = () => {
+        console.log('setStateFromServer ran')
         HouseholdService.getHouseholdUsers(this.props.household.householdid)
         .then(res => {
             this.setState({
@@ -39,58 +55,48 @@ export default class Manage extends React.Component {
         });
     };
 
-    //rework
-    removeUser = (ev) => {
-        let idToRemove = parseInt(ev.target.id);
-        let newUsers = this.props.users.filter(user => user.id !==idToRemove);
-        let found = false;
-        for(let i = 0; i < newUsers.length; i++) {
-            if(newUsers[i].username === this.props.userName) {
-                found = true;
-            }
-        };
-
-        if(found !== false) {
-            this.props.updateUsers(newUsers)
-        } else {
-            this.updateModal();
-        };
+    handleRemoveUserClick = (user) => {
+        this.updateWarning(user);
+        this.updateModal();
+        this.updateUserToRemove(user);
     };
 
-    //rework
-    removeSelf = () => {
-        let userToRemove = this.props.username;
-        let newUsers = this.props.users.filter(user => user.username !== userToRemove);
+    //START HERE
+    //test removing logged in and other user
+    removeUser = () => {
         const { location, history } = this.props;
         const destination = (location.state || {}).from || '/userhome';
-        this.props.updateUsers(newUsers);
-        this.props.removeHousehold(this.props.currentHousehold);
-        history.push(destination);
-    };
+        if(this.props.user.userid !== this.state.userToRemove.userid) {
+            UserService.patchUser(this.state.userToRemove.userid, this.state.userToRemove.username, null, null)
+            .then(
+                this.setStateFromServer()
+            )
+            .then(
+                this.updateModal()
+            )
+        } else {
+            UserService.patchUser(this.state.userToRemove.userid, this.state.userToRemove.username, null, null)
+            .then(
+                this.props.setHousehold(null)
+            );
+            history.push(destination);
+        }
+    }
 
-    //rework
-    removeChore = (ev) => {
-        let newUsersArray = [];
-        this.props.users.forEach(user => {
-            let updatedUser = {
-                id: user.id,
-                username: user.username,
-                chores: user.chores.filter(chore => chore !== ev.target.value)
-            };
-            newUsersArray.push(updatedUser);
-        });
-        this.props.updateUsers(newUsersArray);
-        let idToRemove = parseInt(ev.target.id);
-        let newChores = this.props.chores.filter(chore => this.props.chores.indexOf(chore) !== idToRemove);
-        this.props.updateChores(newChores);
+    //needs more attention
+    //this is deleting chores but not updating state the first time it runs
+    removeChore = (choreid) => {
+        ChoreService.deleteChore(choreid)
+        .then(
+            this.setStateFromServer()
+        )
     };
-
 
     renderUsers = (users) => {
         let usersToRender = users.map(user =>
                 <li
-                   key={user.id}
-                   id={user.id} 
+                   key={user.userid}
+                   id={user.userid} 
                    className='manageuser'
                 >
                     <p 
@@ -100,8 +106,8 @@ export default class Manage extends React.Component {
                     </p>
                     <button
                         className='manageuserbutton'
-                        id={user.id}
-                        onClick={this.removeUser}
+                        id={user.userid}
+                        onClick={() => this.handleRemoveUserClick(user)}
                     >
                         Remove User
                     </button>
@@ -116,25 +122,20 @@ export default class Manage extends React.Component {
         );
     };
 
-    //START HERE
-    //rework or change arguments?
-    renderChores = (chores) => {
+    renderChores = chores => {
         let choresToRender = chores.map(chore =>
             <li
-                key={chores.indexOf(chore)}
-                id={chores.indexOf(chore)}
+                key={chore.choreid}
                 className='managechore'
             >
-                <p 
+                <p
                     className='managechorename'
                 >
-                    {chore}    
+                    {chore.chorename}
                 </p>
                 <button
-                    id={chores.indexOf(chore)}
-                    value={chore}
                     className='managechorebutton'
-                    onClick={this.removeChore}
+                    onClick={() => this.removeChore(chore.choreid)}
                 >
                     Remove Chore
                 </button>
@@ -149,6 +150,14 @@ export default class Manage extends React.Component {
         );
     };
 
+    renderWarningMessage = (user) => {
+        return(
+            <p>
+                You are about to remove {user.username} from {this.props.household.householdname}.  Are you sure you mean to do this?
+            </p>
+        );
+    };
+
     componentDidMount() {
         this.setStateFromServer();
     };
@@ -158,6 +167,11 @@ export default class Manage extends React.Component {
             <div 
                 className='manage'
             >
+                <button
+                    onClick={() =>  this.setStateFromServer()}
+                >
+                    SET STATE FROM SERVER TEST BUTTON
+                </button>
                 <h2>
                    {this.props.household.householdname}
                 </h2>
@@ -192,18 +206,16 @@ export default class Manage extends React.Component {
                 </div>
                 <div className={this.state.modal}>
                     <div className='managemodal'>
-                        <p>
-                            You are about to remove yourself from this household.  Is this what you mean to do?
-                        </p>
+                        {this.state.warning}
                         <button
                             className='manageconfirm'
-                            //onClick={this.removeSelf}
+                            onClick={this.removeUser}
                         >
                             Confirm
                         </button>
                         <button
                             className='managecancel'
-                            //onClick={this.updateModal}
+                            onClick={this.updateModal}
                         >
                             Cancel
                         </button>

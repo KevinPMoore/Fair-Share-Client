@@ -107,6 +107,7 @@ export default class Household extends React.Component {
         };
     };
 
+    //needs more attention
     //only working on second click?
     handleAssignChore = (user, chore) => {
         ChoreService.patchChore(chore.choreid, user.userid, chore.chorehousehold, chore.chorename)
@@ -115,6 +116,7 @@ export default class Household extends React.Component {
         );
     };
 
+    //needs more attention
     //only working on second click?
     handleUnassignAll = () => {
         let assignedChores = this.state.allHouseholdChores.filter(chore => chore.choreuser !== null);
@@ -126,6 +128,7 @@ export default class Household extends React.Component {
         });
     };
 
+    //needs more attention
     //randomizing correctly but not rerendering correctly on first click?
     handleRandomize = (users) => {
         let choresToRandomize = this.state.unassignedChores;
