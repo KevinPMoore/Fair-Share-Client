@@ -8,7 +8,6 @@ import Demo from './components/Demo/Demo';
 import UserHome from './components/UserHome/UserHome';
 import Household from './components/Household/Household';
 import Manage from './components/Manage/Manage';
-import AddChore from './components/AddChore/AddChore';
 import PublicOnlyRoute from './Utils/PublicRoute';
 import PrivateOnlyRoute from './Utils/PrivateRoute';
 import NotFound from './components/NotFound/NotFound';
@@ -93,13 +92,6 @@ export default class App extends React.Component {
               user={this.state.user}
               household={this.state.household}
               setHousehold={this.setHousehold}
-            />
-            
-            <PrivateOnlyRoute
-              path={'/addchore'}
-              component={AddChore}
-              user={this.state.user}
-              household={this.state.household}
             />
 
             <Route

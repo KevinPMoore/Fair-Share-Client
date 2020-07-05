@@ -1,17 +1,30 @@
 import React from 'react';
+import AddChore from '../AddChore/AddChore';
 import HouseholdService from '../../services/households-api-service';
 import UserService from '../../services/users-api-service';
 import ChoreService from '../../services/chores-api-service';
-import { Link } from 'react-router-dom';
 import './Manage.css';
 
 export default class Manage extends React.Component {
     state = {
+        adding: false,
         modal: 'hide',
         choresArray: [],
         usersArray: [],
         userToRemove: null,
         warning:''
+    };
+
+    updateAdding = () => {
+        if(this.state.adding === false) {
+            this.setState({
+                adding: true
+            });
+        } else {
+            this.setState({
+                adding: false
+            });
+        };
     };
 
     updateModal = () => {
@@ -154,6 +167,15 @@ export default class Manage extends React.Component {
         );
     };
 
+    renderAddChore = () => {
+        return(
+            <AddChore
+                user={this.props.user}
+                household={this.props.household}
+            />
+        );
+    };
+
     componentDidMount() {
         this.setStateFromServer();
     };
@@ -191,14 +213,12 @@ export default class Manage extends React.Component {
                         Chores
                     </span>
                     {this.renderChores(this.state.choresArray)}
-                    <Link
-                        to='/addchore'
-                        className='addchorelink'
+                    <button
+                        onClick={this.updateAdding}
                     >
-                        <button>
-                            Add more
-                        </button>
-                    </Link>
+                        Add more
+                    </button>
+                    {this.state.adding === true ? this.renderAddChore() : null}
                 </div>
                 <div className={this.state.modal}>
                     <div className='managemodal'>

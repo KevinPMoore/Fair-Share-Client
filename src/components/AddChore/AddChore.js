@@ -38,8 +38,6 @@ export default class AddChore extends React.Component {
         )
     };
 
-    //START HERE
-    //this is running waaaaayyy too many times
     handleAddChore = () => {
         ChoreService.postChore(this.state.formname, this.props.household.householdid)
         .then(
@@ -47,7 +45,6 @@ export default class AddChore extends React.Component {
         );
     };
 
-    //this loop is adding it
     setChoreModal = (ev) => {
         ev.preventDefault();
         let message = '';
