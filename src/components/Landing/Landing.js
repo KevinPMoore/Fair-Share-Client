@@ -31,7 +31,8 @@ export default class Landing extends React.Component {
                     <p>
                     Sometimes housework can be a nice break from other things.  Sometimes you may
                     not mind folding laundry or making dinner.  Maybe you don't mind taking on an
-                    extra job or two.  If there are chores you want all you have to do is drag and drop them into your list.  You can do this at any time, before or after Fair 
+                    extra job or two.  If there are chores you want all you have to do is drag and 
+                    drop them into your list.  You can do this at any time, before or after Fair 
                     Share has assigned things!
                     </p>
                 </section>
@@ -39,7 +40,8 @@ export default class Landing extends React.Component {
                     <h3>Every household is unique.</h3>
                     <div className='right screenshot'>Screenshot of adding chores</div>
                     <p>
-                    While Fair Share comes with a list of common chores already, its imporant that each user has an experience built for their needs.  Maybe you don't need to empty
+                    While Fair Share comes with a list of common chores already, its imporant that each 
+                    user has an experience built for their needs.  Maybe you don't need to empty
                     a litter box but instead need to feed an iguana.  Maybe instead of dropping your
                     kids off at school you deliver groceries to an elderly neighbor.  Fair Share lets
                     you add chores that fit your lifestyle.

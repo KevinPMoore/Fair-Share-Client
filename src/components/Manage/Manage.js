@@ -61,8 +61,6 @@ export default class Manage extends React.Component {
         this.updateUserToRemove(user);
     };
 
-    //START HERE
-    //test removing logged in and other user
     removeUser = () => {
         const { location, history } = this.props;
         const destination = (location.state || {}).from || '/userhome';
@@ -76,10 +74,8 @@ export default class Manage extends React.Component {
             )
         } else {
             UserService.patchUser(this.state.userToRemove.userid, this.state.userToRemove.username, null, null)
-            .then(
-                this.props.setHousehold(null)
-            );
             history.push(destination);
+            this.props.setHousehold(null);
         }
     }
 

@@ -28,7 +28,7 @@ export default class Login extends React.Component {
         history.push(destination);
     };
 
-    handleSubmitJTWAuth = ev => {
+    handleSubmitJTWAuth = (ev) => {
         ev.preventDefault();
         this.setState({
             error: null
