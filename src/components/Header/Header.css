@@ -2,5 +2,85 @@ nav {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    background-color: #aaa;
+    background-color: #5c007a;
+    height: 60px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    border-bottom: 1px solid #BDBDBD;
+}
+
+.home {
+    padding-top: 10px;
+}
+
+.homelink {
+    color: white;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 8px;
+}
+
+img {
+    height: 64px;
+    width: 64px;
+}
+
+img:hover {
+    cursor: pointer;
+}
+
+.buttonscontainer {
+    position: relative;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 70px;
+    min-height: 140px;
+    background-color: #5c007a;
+    border-bottom: 1px solid #BDBDBD;
+    border-right: 1px solid #BDBDBD;
+}
+
+.buttonscontainer:before {
+    content: '';
+    border-left: 1px solid #BDBDBD;
+    position: absolute;
+    top: 60px;
+    bottom: 0;
+}
+
+.notloggedin {
+    margin-top: auto;
+    margin-bottom: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.loggedin {
+    margin-top: auto;
+    margin-bottom: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.loginlink .registerlink {
+    max-height: 30px;
+    max-width: 70px;
+}
+
+.navbutton {
+    min-height: 30px;
+    min-width: 70px;
+    max-height: 50px;
+    margin: 8px;
+}
+
+.navbutton:hover {
+    cursor: pointer;
+}
+
+.xicon {
+    margin-left: 18px;
 }

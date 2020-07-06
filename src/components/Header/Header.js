@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import TokenService from '../../services/token-service';
+import HamburgerMenu from './Hamburger_icon.png';
+import XIcon from './X_icon.png';
 import './Header.css';
 
 export default class Header extends React.Component {
@@ -60,7 +62,6 @@ export default class Header extends React.Component {
         );
     };
 
-    //change from props to authtoken haslogin
     renderLogin() {
         return(
             <div className='notloggedin'>
@@ -98,7 +99,11 @@ export default class Header extends React.Component {
                     </h1>
                 </div>
                 <div>
-                    {TokenService.hasAuthToken() ? this.renderLogout() : this.renderLogin()}
+                    <img className={[this.state.burger, 'burgericon'].join(' ')} src={HamburgerMenu} alt='a hamburger icon of three horizontle lines' onClick={this.handleToggleClick}></img>
+                    <div className={[this.state.buttons, 'buttonscontainer'].join(' ')}>
+                        <img className ='xicon' src={XIcon} alt='a green X' onClick={this.handleToggleClick}></img>
+                        {TokenService.hasAuthToken() ? this.renderLogout() : this.renderLogin()}  
+                    </div>
                 </div>
             </nav>
         )

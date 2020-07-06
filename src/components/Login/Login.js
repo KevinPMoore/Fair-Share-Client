@@ -57,56 +57,71 @@ export default class Login extends React.Component {
     render() {
         const error = this.state.error;
         return(
-            <form
-                className='registerform'
-                onSubmit={this.handleSubmitJTWAuth}
+            <div
+                className='login'
             >
-                <div className='alert'>
-                    {error && <p className='red'>{error}</p>}
-                </div>
-                <div className='username'>
-                    <label
-                        className='loginuserlabel'
-                        htmlFor='loginusername'
-                    >
-                        Username
-                    </label>
-                    <input
-                        name='username'
-                        type='text'
-                        id='loginusername'
-                        placeholder='ex. CoolGuyJokes87'
-                        required
-                        onChange={this.updateUsername}
-                    >
-                    </input>
-                </div>
-                <div
-                    className='password'
+                <h2
+                    className='loginh'
                 >
-                    <label
-                        className='loginpasswordlabel'
-                        htmlFor='loginpassword'
-                    >
-                        Password
-                    </label>
-                    <input
-                        name='password'
-                        type='password'
-                        id='loginpassword'
-                        placeholder='V3ryS3cr1t!'
-                        required
-                        onChange={this.updatePassword}
-                    >
-                    </input>
-                </div>
-                <button
-                    id='loginsubmit'
-                    type='submit'
+                    Log In
+                </h2>
+                <form
+                    className='loginform'
+                    onSubmit={this.handleSubmitJTWAuth}
                 >
-                    Submit
-                </button>
-            </form>
+                    <div className='alert'>
+                        {error && <p className='red'>{error}</p>}
+                    </div>
+                    <div
+                        className='formcontainer'
+                    >
+                        <div 
+                            className='username'
+                        >
+                            <label
+                                className='loginuserlabel'
+                                htmlFor='loginusername'
+                            >
+                                Username
+                            </label>
+                            <input
+                                name='username'
+                                type='text'
+                                id='loginusername'
+                                placeholder='ex. CoolGuyJokes87'
+                                required
+                                onChange={this.updateUsername}
+                            >
+                            </input>
+                        </div>
+                        <div
+                            className='password'
+                        >
+                            <label
+                                className='loginpasswordlabel'
+                                htmlFor='loginpassword'
+                            >
+                                Password
+                            </label>
+                            <input
+                                name='password'
+                                type='password'
+                                id='loginpassword'
+                                placeholder='V3ryS3cr1t!'
+                                required
+                                onChange={this.updatePassword}
+                            >
+                            </input>
+                        </div>
+                        <button
+                            id='loginsubmit'
+                            type='submit'
+                        >
+                            Submit
+                        </button>
+                        </div>
+                </form>
+            </div>
         );
     };
 };

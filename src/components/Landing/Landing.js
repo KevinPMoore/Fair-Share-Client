@@ -10,7 +10,9 @@ export default class Landing extends React.Component {
                 <section className='landingsection'>
                     <h3>Its time to get organized!</h3>
                     <div className='right screenshot'>Screenshot of demo house with chore list</div>
-                    <p>
+                    <p
+                        className='landingp'
+                    >
                     From washing dishes, to folding laundry, to taking out the trash there are so
                     many chores to maintain a household it can be hard to keep track.  Fiar Share
                     makes it easy to keep track of what needs to be done and who is going to do it.
@@ -19,7 +21,9 @@ export default class Landing extends React.Component {
                 <section className='landingsection'>
                     <h3>Share the load.</h3>
                     <div className='right screenshot'>Screenshot of chores randomly distributed</div>
-                    <p> 
+                    <p
+                        className='landingp'
+                    > 
                     Once you've decided what needs to be done, the next step is to figure out who
                     will do it.  Fair Share allows you to shuffle all your household chores and
                     deal them out evenly.  That way everybody gets an equal share of the work!
@@ -28,7 +32,9 @@ export default class Landing extends React.Component {
                 <section className='landingsection'>
                     <h3>But what if I like folding laundry?</h3>
                     <div className='right screenshot'>Screenshot of drag and drop chores</div>
-                    <p>
+                    <p
+                        className='landingp'
+                    >
                     Sometimes housework can be a nice break from other things.  Sometimes you may
                     not mind folding laundry or making dinner.  Maybe you don't mind taking on an
                     extra job or two.  If there are chores you want all you have to do is drag and 
@@ -39,7 +45,9 @@ export default class Landing extends React.Component {
                 <section className='landingsection'>
                     <h3>Every household is unique.</h3>
                     <div className='right screenshot'>Screenshot of adding chores</div>
-                    <p>
+                    <p
+                        className='landingp'
+                    >
                     While Fair Share comes with a list of common chores already, its imporant that each 
                     user has an experience built for their needs.  Maybe you don't need to empty
                     a litter box but instead need to feed an iguana.  Maybe instead of dropping your
@@ -49,21 +57,35 @@ export default class Landing extends React.Component {
                 </section>
                 <footer className='landingfooter'>
                     <h3>Give it a try!</h3>
-                    <p>
-                    You can try Fair Share out for your self, or if you're already convinced sign up for your own account below!. 
+                    <p
+                        className='footerp'
+                    >
+                    You can try Fair Share out for your self, or if you're already convinced sign up for your own account below!
                     </p>
-                    <Link
-                        className='landinglink'
-                        to='/demo'
+                    <div
+                        className='landingbuttons'
                     >
-                        <button>Demo the app</button>
-                    </Link>
-                    <Link 
-                        className='landinglink'
-                        to='/register'
-                    >
-                      <button>Register</button>  
-                    </Link>
+                        <Link
+                            className='landinglink'
+                            to='/demo'
+                        >
+                            <button
+                                className='demobutton'
+                            >
+                                Demo
+                            </button>
+                        </Link>
+                        <Link 
+                            className='landinglink'
+                            to='/register'
+                        >
+                            <button
+                                className='registerbutton'
+                            >
+                                Register
+                            </button>  
+                        </Link>
+                    </div>
                 </footer>
             </section>
         )

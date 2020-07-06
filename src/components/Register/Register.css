@@ -1,0 +1,27 @@
+.register {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    padding-top: 80px;
+    background-color: #c158dc;
+}
+
+.registerh {
+    color: whitesmoke;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px black;
+}
+
+.passwordrules {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 4px;
+    text-align: center;
+    padding-left: 2px;
+    padding-right: 2px;
+    padding-bottom: 2px;
+    max-width: 300px;
+    color: whitesmoke
+}

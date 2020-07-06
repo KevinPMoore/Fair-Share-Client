@@ -4,18 +4,34 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding-top: 60px;
+}
+
+h3 {
+ text-align: center;
+ color: whitesmoke;   
 }
   
 .landingsection {
     min-height: 300px;
-    background-color: #bbb;
+    background-color: #8e24aa;
+    padding-bottom: 8px;
+    border: 1px solid #BDBDBD;
 }
 
 .landingsection:nth-child(even) {
-    background-color: #ddd;
+    background-color: #c158dc;
+}
+
+.landingp {
+    margin-left: 8px;
+    margin-right: 8px;
+    color: whitesmoke;
 }
 
 .right {
+    margin-right: 8px;
+    margin-left: 6px;
     float: right;
 }
 
@@ -28,5 +44,26 @@
 
 .landingfooter {
     text-align: center;
-    background-color: #aaa;
+    background-color: #5c007a;
+}
+
+.footerp {
+    color: whitesmoke;
+    padding-left: 3px;
+    padding-right: 8px;
+}
+
+.landingbuttons {
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 4px;
+}
+
+.demobutton, .registerbutton {
+    min-height: 30px;
+    min-width: 70px;
+    max-height: 50px;
+    max-width: 70px;
+    margin-top: 3px;
+    margin-bottom: 3px;
 }

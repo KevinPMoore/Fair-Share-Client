@@ -11,7 +11,6 @@ import Manage from './components/Manage/Manage';
 import PublicOnlyRoute from './Utils/PublicRoute';
 import PrivateOnlyRoute from './Utils/PrivateRoute';
 import NotFound from './components/NotFound/NotFound';
-import './App.css';
 
 export default class App extends React.Component {
   state = {

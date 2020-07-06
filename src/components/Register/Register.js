@@ -63,59 +63,72 @@ export default class Register extends React.Component {
     render() {
         const error = this.state.error;
         return(
-            <form
-                className='registerform'
-                onSubmit={this.handleRegisterSubmit}
-            >   
-                <p className='passwordrules'>
-                    To register please enter a username that is at least 9 characters long
-                    and a password that includes an uppercase letter, a lowercase
-                    letter, a number and a special character.
-                </p>
-                <div className='alert'>
-                    {error && <p className='red'>{error}</p>}
-                </div>
-                <div className='username'>
-                    <label 
-                        className='registeruserlabel'
-                        htmlFor='registerusername'
-                    >
-                        Username
-                    </label>
-                    <input
-                        name='username'
-                        type='text'
-                        id='registerusername'
-                        placeholder='ex. CoolGuyJokes87'
-                        required
-                        onChange={this.updateUsername}
-                    >
-                    </input>
-                </div>
-                <div className='password'>
-                    <label 
-                        className='registerpasswordlabel'
-                        htmlFor='registerpassword'
-                    >
-                        Password
-                    </label>
-                    <input
-                        name='password'
-                        type='password'
-                        id='registerpassword'
-                        placeholder='V3ryS3cr1t!'
-                        required
-                        onChange={this.updatePassword}
-                    >
-                    </input>
-                </div>
-                <button
-                    id='registersubmit'
-                    type='submit'
+            <div
+                className='register'
+            >
+                <h2
+                    className='registerh'
                 >
                     Register
-                </button>
-            </form>
+                </h2>
+                <form
+                    className='registerform'
+                    onSubmit={this.handleRegisterSubmit}
+                >   
+                    <p className='passwordrules'>
+                        To register an account, please enter a username that is at least 9 characters long
+                        and a password that includes an uppercase letter, a lowercase
+                        letter, a number and a special character.
+                    </p>
+                    <div className='alert'>
+                        {error && <p className='red'>{error}</p>}
+                    </div>
+                    <div
+                        className='formcontainer'
+                    >
+                        <div className='username'>
+                            <label 
+                                className='registeruserlabel'
+                                htmlFor='registerusername'
+                            >
+                                Username
+                            </label>
+                            <input
+                                name='username'
+                                type='text'
+                                id='registerusername'
+                                placeholder='ex. CoolGuyJokes87'
+                                required
+                                onChange={this.updateUsername}
+                            >
+                            </input>
+                        </div>
+                        <div className='password'>
+                            <label 
+                                className='registerpasswordlabel'
+                                htmlFor='registerpassword'
+                            >
+                                Password
+                            </label>
+                            <input
+                                name='password'
+                                type='password'
+                                id='registerpassword'
+                                placeholder='V3ryS3cr1t!'
+                                required
+                                onChange={this.updatePassword}
+                            >
+                            </input>
+                        </div>
+                        <button
+                            id='registersubmit'
+                            type='submit'
+                        >
+                            Register
+                        </button>
+                    </div>
+                </form>
+            </div>
         );
     };
 };
