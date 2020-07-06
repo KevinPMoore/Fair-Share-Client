@@ -25,3 +25,23 @@
     max-width: 300px;
     color: whitesmoke
 }
+
+.registeruserlabel, .registerpasswordlabel {
+    color: whitesmoke;
+}
+
+#registerusername, #registerpassword {
+    height: 22px;
+    box-shadow: 5px 8px 8px black;
+}
+
+#registersubmit {
+    min-height: 30px;
+    min-width: 70px;
+    max-height: 50px;
+    max-width: 70px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    margin-left: auto;
+    margin-right: auto;
+}

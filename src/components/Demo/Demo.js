@@ -56,6 +56,7 @@ export default class Demo extends React.Component {
         let userChores = chores.map(chore =>
             <li
                 key={chores.indexOf(chore)}
+                className='demoassignedchore'
             >
                 {chore}
             </li>
@@ -71,7 +72,11 @@ export default class Demo extends React.Component {
                 key={chores.indexOf(chore)}
             >
                 {chore}
-                {this.renderUserButtons(users, chore)}
+                <div
+                    className='demouserbuttonscontainer'
+                >
+                    {this.renderUserButtons(users, chore)}
+                </div>
             </li>
             );
             return(
@@ -85,6 +90,7 @@ export default class Demo extends React.Component {
         let buttons = users.map(user =>
             <button
                 key={user.username+user.id}
+                className='demouserassignbutton'
                 id={user.id}
                 onClick={() => this.updateUserChores(user, chore)}
             >
@@ -97,6 +103,7 @@ export default class Demo extends React.Component {
     renderRandomizeButton = (users) => {
         let randomizeButton = 
         <button
+            className='demorandomizebutton'
             onClick={() => this.handleRandomize(users)}
         >
             Randomize
@@ -169,8 +176,6 @@ export default class Demo extends React.Component {
         });
     };
 
-    //TODOs:
-    //chores can be dragged/dropped
     render() {
 
         return(
@@ -179,11 +184,18 @@ export default class Demo extends React.Component {
                     Demo House
                 </h2>
                 {this.renderUsers(this.state.users)}
-                <section className='demochores'>
-                    <span className='demovertical'>Chores</span>
+                <section 
+                    className='demochores'
+                >
+                    <p 
+                        className='demochoreheading'
+                    >
+                        Chores
+                    </p>
                     {this.renderChoreList(this.state.unassignedChores, this.state.users)}
                     <div className='demochorebuttons'>
                         <button
+                            className='demounassignbutton'
                             onClick={this.handleUnassignAll}
                         >
                             Unassign All
@@ -197,7 +209,11 @@ export default class Demo extends React.Component {
                     <Link
                         to='/register'
                     >
-                        Register
+                        <button
+                            className='demofooterbutton'
+                        >
+                            Register
+                        </button>
                     </Link>
                 </footer>
             </div>
