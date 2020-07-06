@@ -4,6 +4,7 @@
     justify-content: center;
     width: 100%;
     height: 100%;
+    padding-top: 60px;
 }
 
 .collapsed {
@@ -11,11 +12,47 @@
 }
 
 .householdlink {
-    text-align: center;
+    height: 80px;
+    width: 80px;
+}
+
+.houseicon {
+    display: block;
+    height: 80px;
+    width: 80px;
+    background-color: #8e24aa;
+    border-radius: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid black;
+    box-shadow: 5px 8px 8px black;
+}
+
+.houseicon:hover {
+    cursor: pointer;
+}
+
+.leavehouseholdbutton {
+    min-height: 30px;
+    min-width: 70px;
+    max-height: 50px;
+    max-width: 70px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.householdtitle {
+    margin-top: 6px;
+    margin-bottom: 6px;
 }
 
 .joinhouseholdbutton {
-    width: 70px;
+    min-height: 30px;
+    min-width: 70px;
+    max-height: 50px;
+    max-width: 70px;
+    margin-top: 3px;
+    margin-bottom: 3px;
     align-self: center;
 }
 
@@ -27,15 +64,42 @@
     width: 80%;
     margin-left: auto;
     margin-right: auto;
-    background-color: #bbb;
+    background-color: #8e24aa;
+    border: 1px solid #BDBDBD;
+    box-shadow: 5px 8px 8px black;
 }
 
-.userhomelabel {
+.userhomelabel, .createhouseholdnamelabel {
     text-align: center;
+    color: whitesmoke;
+}
+
+#joinhouseholdname, #joinhouseholdid {
+    align-self: center;
+    width: 70%;
+    height: 22px;
+    margin-top: 3px;
+    margin-bottom: 8px;
+    box-shadow: 5px 8px 8px black;
+}
+
+.userhomesubmitbutton {
+    min-height: 30px;
+    min-width: 70px;
+    max-height: 50px;
+    max-width: 70px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    align-self: center;
 }
 
 .createhouseholdbutton {
-    width: 70px;
+    min-height: 30px;
+    min-width: 70px;
+    max-height: 50px;
+    max-width: 70px;
+    margin-top: 3px;
+    margin-bottom: 3px;
     align-self: center;
 }
 
@@ -47,5 +111,16 @@
     width: 80%;
     margin-left: auto;
     margin-right: auto;
-    background-color: #ddd;
+    background-color: #8e24aa;
+    border: 1px solid #BDBDBD;
+    box-shadow: 5px 8px 8px black;
+}
+
+#createhouseholdname {
+    align-self: center;
+    width: 70%;
+    height: 22px;
+    margin-top: 3px;
+    margin-bottom: 8px;
+    box-shadow: 5px 8px 8px black;
 }

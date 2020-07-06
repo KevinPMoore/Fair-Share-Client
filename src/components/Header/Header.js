@@ -45,7 +45,9 @@ export default class Header extends React.Component {
                     className='userhomelink'
                     to='/userhome'
                 >
-                    <button className='navbutton'>
+                    <button 
+                        className='navbutton'
+                    >
                         Home
                     </button>
                 </Link>
@@ -54,7 +56,9 @@ export default class Header extends React.Component {
                     to='/'
                     onClick={this.handleLogoutClick}
                 >
-                    <button>
+                    <button
+                        className='navbutton'
+                    >
                         Logout
                     </button>
                 </Link>

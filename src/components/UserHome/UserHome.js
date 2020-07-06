@@ -1,8 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import HouseIcon from './houseicon.jpg';
 import HouseholdService from '../../services/households-api-service';
 import UserService from '../../services/users-api-service';
 import './UserHome.css';
+
+//Bugfixes: not rendering icon and link to manage when joining
+//test creating too
 
 export default class UserHome extends React.Component {
     state = {
@@ -106,24 +110,30 @@ export default class UserHome extends React.Component {
     };
 
     renderHousehold = (household) => {
-        let householdList = 
-            <li
-                id={household}
-                className='householdlink'
-                key={household}
-            >
-                <Link
-                    to='/household'
-                    className='householdlink'
+        if(this.state.userhousehold !== null) {
+            return(
+                <div
+                    className='householdinfo'
                 >
-                  {household}  
-                </Link>
-            </li>;
-        return(
-            <ul className='householdlist'>
-                {householdList}
-            </ul>
-        );
+                    <Link
+                        className='householdlink'
+                        to='/household'
+                    >
+                    <img
+                        className='houseicon'
+                        src={HouseIcon}
+                        alt='an icon depicting a house'
+                    >
+                    </img> 
+                    </Link>
+                    <h3
+                        className='householdtitle'
+                    >
+                        {household}
+                    </h3>
+                </div>
+            );
+        };
     };
 
     renderJoinButton = () => {
@@ -227,6 +237,7 @@ export default class UserHome extends React.Component {
                         >
                         </input>
                         <button
+                            className='userhomesubmitbutton'
                             type='submit'
                         >
                             Submit
@@ -255,6 +266,7 @@ export default class UserHome extends React.Component {
                         >
                         </input>
                         <button
+                            className='userhomesubmitbutton'
                             type='submit'
                         >
                             Submit

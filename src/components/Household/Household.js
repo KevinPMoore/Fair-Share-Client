@@ -55,6 +55,7 @@ export default class Household extends React.Component {
         let assignedChores = this.state.allHouseholdChores.filter(chore => chore.choreuser === userid);
         let choresToRender = assignedChores.map(chore =>
             <li
+                className='userassignedchore'
                 key={chore.choreid}
             >
                 {chore.chorename}
@@ -71,7 +72,11 @@ export default class Household extends React.Component {
                 key={chore.choreid}
             >
                 {chore.chorename}
-                {this.renderUserButtons(users, chore)}
+                <div
+                    className='householduserbuttonscontainer'
+                >
+                    {this.renderUserButtons(users, chore)}
+                </div>
             </li>
             );
             return(
@@ -85,6 +90,7 @@ export default class Household extends React.Component {
         let buttons = users.map(user =>
             <button
                 key={user.username+user.id}
+                className='householduserassignbutton'
                 id={user.username}
                 onClick={() => this.handleAssignChore(user, chore)}
             >
@@ -98,6 +104,7 @@ export default class Household extends React.Component {
         let users = this.state.usersArray;
         let randomizeButton = 
         <button
+            className='householdrandomizebutton'
             onClick={() => this.handleRandomize(users)}
         >
             Randomize
@@ -187,7 +194,7 @@ export default class Household extends React.Component {
                 <h3
                     className='householdid'
                 >
-                    {this.props.household.householdid}
+                    ID: {this.props.household.householdid}
                 </h3>
                 <Link
                     className='managelink'
@@ -199,13 +206,23 @@ export default class Household extends React.Component {
                 <section 
                     className='householdchores'
                 >
-                    {this.renderChoreList(this.state.unassignedChores, this.state.usersArray)}
-                    <button
-                        onClick={this.handleUnassignAll}
+                    <p
+                        className='householdchoreheading'
                     >
-                        Unassign All
-                    </button>
-                    {this.renderRandomizeButton(this.state.unassignedChores)}
+                        Chores
+                    </p>
+                    {this.renderChoreList(this.state.unassignedChores, this.state.usersArray)}
+                    <div
+                        className='householdchorebuttons'
+                    >
+                        <button
+                            className='householdunassignbutton'
+                            onClick={this.handleUnassignAll}
+                        >
+                            Unassign All
+                        </button>
+                        {this.renderRandomizeButton(this.state.unassignedChores)}
+                    </div>
                 </section>
             </div>
         )
