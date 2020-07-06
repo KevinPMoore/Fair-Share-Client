@@ -1,7 +1,18 @@
 .manage {
+    height: 100%;
+    width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    padding-top: 60px;
+    background-color: #c158dc;
+}
+
+.manageusers {
+    width: 80%;
+    align-self: center;
+    border: 1px solid #BDBDBD;
+    box-shadow: 5px 8px 8px black;
+    margin-bottom: 10px;
 }
 
 .manageuser {
@@ -9,17 +20,25 @@
     flex-direction: row;
     justify-content: space-between;
     min-height: 80px;
-    background-color: #bbb;
+    background-color: #8e24aa;
 }
 
 .manageuser:nth-child(even) {
-    background-color: #ddd;
+    background-color: #5c007a;
+}
+
+.manageuserheader {
+    color: whitesmoke;
+    text-align: center;
+    font-size: 1.1rem;
+    background-color: #5c007a;
 }
 
 .manageusername {
     margin-top: auto;
     margin-bottom: auto;
     margin-left: 8px;
+    color: whitesmoke;
 }
 
 .manageuserbutton {
@@ -30,16 +49,32 @@
     margin-right: 8px;
 }
 
+.managechores {
+    width: 80%;
+    align-self: center;
+    border: 1px solid #BDBDBD;
+    box-shadow: 5px 8px 8px black;
+    margin-bottom: 10px;
+}
+
 .managechore {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     min-height: 80px;
-    background-color: #bbb;
+    background-color: #8e24aa;
+    color: whitesmoke;
+}
+
+.managechoreheader {
+    color: whitesmoke;
+    text-align: center;
+    font-size: 1.1rem;
+    background-color: #5c007a;
 }
 
 .managechore:nth-child(even) {
-    background-color: #ddd;
+    background-color: #5c007a;
 }
 
 .managechorename {
@@ -54,6 +89,14 @@
     margin-top: auto;
     margin-bottom: auto;
     margin-right: 8px;
+}
+
+.addchorebutton {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 4px;
+    margin-bottom: 4px;
 }
 
 .hide {

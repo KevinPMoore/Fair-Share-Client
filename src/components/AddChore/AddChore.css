@@ -1,19 +1,8 @@
 .addchore {
+    margin-top: 12px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-}
-
-.choreitem {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    min-height: 80px;
-    background-color: #bbb;
-}
-
-.choreitem:nth-child(even) {
-    background-color: #ddd;
 }
 
 .addchorename {
@@ -35,17 +24,21 @@
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    background-color: #aaa;
+    background-color: #8e24aa;
 }
 
 .chorenamelabel {
     text-align: center;
+    color: whitesmoke;
 }
 
 .chorename {
+    align-self: center;
     width: 70%;
-    margin-left: auto;
-    margin-right: auto;
+    height: 22px;
+    margin-top: 3px;
+    margin-bottom: 8px;
+    box-shadow: 5px 8px 8px black;
 }
 
 .newchorebutton {
@@ -65,4 +58,10 @@
     width: 80%;
     display: flex;
     justify-content: space-evenly;
+}
+
+.modalconfirmbutton {
+    padding: 2px;
+    height: 40px;
+    width: 60px;
 }

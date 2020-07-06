@@ -196,27 +196,32 @@ export default class Manage extends React.Component {
                 <h3
                     className='householdid'
                 >
-                    {this.props.household.householdid}
+                    ID: {this.props.household.householdid}
                 </h3>
                 <div 
                     className='manageusers'
                 >
-                    <span>
+                    <p
+                        className='manageuserheader'
+                    >
                         Users
-                    </span>
+                    </p>
                     {this.renderUsers(this.state.usersArray)}
                 </div>
                 <div 
                     className='managechores'
                 >
-                    <span>
+                    <p
+                        className='managechoreheader'
+                    >
                         Chores
-                    </span>
+                    </p>
                     {this.renderChores(this.state.choresArray)}
                     <button
+                        className='addchorebutton'
                         onClick={this.updateAdding}
                     >
-                        Add more
+                        New Chore
                     </button>
                     {this.state.adding === true ? this.renderAddChore() : null}
                 </div>

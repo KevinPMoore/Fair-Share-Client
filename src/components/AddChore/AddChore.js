@@ -83,6 +83,7 @@ export default class AddChore extends React.Component {
                         {this.state.modalMessage}
                     </p>
                     <button
+                        className='modalconfirmbutton'
                         onClick={this.updateModal}
                     >
                         Confirm
@@ -126,7 +127,7 @@ export default class AddChore extends React.Component {
                         className='newchorebutton'
                         type='submit'
                     >
-                        Add new chore
+                        Add Chore
                     </button>
                 </form>
                 {this.renderChoreModal()}
