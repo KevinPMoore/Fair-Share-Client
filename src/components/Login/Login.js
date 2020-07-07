@@ -28,6 +28,7 @@ export default class Login extends React.Component {
         history.push(destination);
     };
 
+    //Sends post request to API to check username/password combo then uses the response to set AuthToken
     handleSubmitJTWAuth = (ev) => {
         ev.preventDefault();
         this.setState({

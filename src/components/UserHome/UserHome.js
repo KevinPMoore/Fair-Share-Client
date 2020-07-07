@@ -5,8 +5,10 @@ import HouseholdService from '../../services/households-api-service';
 import UserService from '../../services/users-api-service';
 import './UserHome.css';
 
-//Bugfixes: not rendering icon and link to manage when joining
-//test creating too
+//consider using a setStateFromServer here?
+
+//Bugfix: not rendering icon and link to manage when joining
+//Bugfix: error hard to read
 
 export default class UserHome extends React.Component {
     state = {
@@ -33,11 +35,13 @@ export default class UserHome extends React.Component {
     updatedJoin = () => {
         if(this.state.join === 'collapsed') {
             this.setState({
-                join: 'expand'
+                join: 'expand',
+                error: null
             })
         } else {
             this.setState({
-                join:'collapsed'
+                join:'collapsed',
+                error: null
             })
         };
     };
@@ -45,15 +49,18 @@ export default class UserHome extends React.Component {
     updatedCreate = () => {
         if(this.state.create === 'collapsed') {
             this.setState({
-                create: 'expand'
+                create: 'expand',
+                error: null
             })
         } else {
             this.setState({
-                create:'collapsed'
+                create:'collapsed',
+                error: null
             })
         };
     };
 
+    //Patches user to reset userhousehold to null
     leaveHousehold = () => {
         UserService.patchUser(this.state.userid, this.state.username, null, this.props.user.userchores);
         this.setState({
@@ -62,6 +69,9 @@ export default class UserHome extends React.Component {
         });
     };
 
+    //Checks if the name and id entered match a household in the database
+    //If yes the user is patched to set its userhousehold = the household's householdid
+    //If no an error is displayed
     joinHousehold = (ev) => {
         let nameToJoin = this.state.formname;
         let numberToJoin = this.state.formnumber;
@@ -88,10 +98,13 @@ export default class UserHome extends React.Component {
         });
         this.setState({
             formname: '',
-            formnumber: ''
+            formnumber: '',
+            error: null
         });
     };
 
+    //Sends a post to the server creating a new household
+    //Then patches the user to set its userhousehold = the household's householdid
     createHousehold = (ev) => {
         ev.preventDefault();
         this.updatedCreate();
@@ -105,10 +118,12 @@ export default class UserHome extends React.Component {
                 UserService.patchUser(this.state.userid, this.state.username, res.householdid, this.props.userchores);
             });
         this.setState({
-            formname: ''
+            formname: '',
+            error: null
         });
     };
 
+    //Only renders the household if the user has created/joined one already
     renderHousehold = (household) => {
         if(this.state.userhousehold !== null) {
             return(
@@ -136,6 +151,7 @@ export default class UserHome extends React.Component {
         };
     };
 
+    //Only allows user to join household if they are not already in one
     renderJoinButton = () => {
         let joinHouseholdButton = <button
                 className='joinhouseholdbutton'
@@ -148,6 +164,7 @@ export default class UserHome extends React.Component {
             };
     };
 
+    //Only allows user to create household if they are not already in one
     renderCreateButton = () => {
         let createHouseholdButton = <button
             className='createhouseholdbutton'
@@ -160,6 +177,7 @@ export default class UserHome extends React.Component {
         };
     };
 
+    //Only allows user to leave household if they are in one
     renderLeaveHouseButton = () => {
         let leaveHouseButton = <button
             className='leavehouseholdbutton'
@@ -172,6 +190,7 @@ export default class UserHome extends React.Component {
         };
     };
 
+    //Sets the initial state on component mount
     componentDidMount() {
         this.setState({
             username: this.props.user.username,
@@ -194,7 +213,7 @@ export default class UserHome extends React.Component {
         return(
             <div className='userhome'>
                 <h2>
-                    {this.props.user.username || 'TestGuy'}
+                    {this.props.user.username}
                 </h2>
                 <div className='alert'>
                     {error && <p className='red'>{error}</p>}

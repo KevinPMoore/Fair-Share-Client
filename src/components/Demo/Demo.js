@@ -12,6 +12,8 @@ export default class Demo extends React.Component {
         users: _.cloneDeep(Store.storedUsers)
     };
 
+    //Adds a chore to the chores key of a user 
+    //then removes a chore with the name of the value of that key from unassigned chores while pushing into assigned chores
     updateUserChores = (user, chore) => {
         let updatedUser = {
             id: user.id,
@@ -30,6 +32,7 @@ export default class Demo extends React.Component {
         });
     };
 
+    //Loops through the provided users to create HTML elements for each one
     renderUsers = (users) => {
         let renderUsers = users.map(user => 
                 <div 
@@ -52,6 +55,7 @@ export default class Demo extends React.Component {
         );
     };
 
+    //Loops through the chores key of a user to create li elements for each one
     renderUserChores = (chores) => {
         let userChores = chores.map(chore =>
             <li
@@ -64,6 +68,7 @@ export default class Demo extends React.Component {
         return(userChores)
     };
 
+    //Loops through a list of chores to create li elements with buttons for each user created by calling renderUserButtons
     renderChoreList = (chores, users) => {
         let choreList = chores.map(chore =>
             <li 
@@ -86,6 +91,7 @@ export default class Demo extends React.Component {
             );
     };
 
+    //Creates a button for each user that calls updateUserChores on click
     renderUserButtons = (users, chore) => {
         let buttons = users.map(user =>
             <button
@@ -100,6 +106,8 @@ export default class Demo extends React.Component {
         return(buttons)
     };
 
+    //Creates a button that calls handleRandomize on click
+    //The button is only rendered if there are chores to randomize
     renderRandomizeButton = (users) => {
         let randomizeButton = 
         <button
@@ -116,6 +124,7 @@ export default class Demo extends React.Component {
         };
     };
 
+    //Removes all chores from users, empties assignedChores and sets all chore back to unassignedChores
     handleUnassignAll = () => {
         console.log('stored users ', Store.storedUsers)
         this.setState({
@@ -125,12 +134,14 @@ export default class Demo extends React.Component {
         });
     };
 
+    //First shuffles the array of unassignedChores to randomize order according to the Fisher-Yates Algorithm
+    //Then turns the shuffled array into an array of arrays with each array length as equal as possible
+    //This chunked array is then shuffled
+    //Finally, each user is assigned chores from the shuffled and chunked array
     handleRandomize = (users) => {
         let choresToRandomize = this.state.unassignedChores;
-        console.log('unassigned chores to randomize are ', choresToRandomize);
 
         let chunkSize = Math.ceil(choresToRandomize.length / users.length);
-        console.log('chunkSize is ', chunkSize);
 
         function shuffle(array) {
             let returnArray = [];
@@ -144,7 +155,6 @@ export default class Demo extends React.Component {
         };
 
         let shuffledChores = shuffle(choresToRandomize);
-        console.log('shuffledChores are ', shuffledChores);
 
         function chunk(array, size) {
             let returnArray = [];
@@ -156,7 +166,6 @@ export default class Demo extends React.Component {
         };
 
         let chunkedChores = chunk(shuffledChores, chunkSize);
-        console.log('chunkedChores are ', chunkedChores);
 
         let shuffledAndChunkedChores = shuffle(chunkedChores);
 
@@ -167,8 +176,7 @@ export default class Demo extends React.Component {
               return users;
         };
 
-        let usersWithChores = distribute(users, shuffledAndChunkedChores)
-        console.log('users with chores are ', usersWithChores);
+        distribute(users, shuffledAndChunkedChores);
 
         this.setState({
             assignedChores: this.state.assignedChores.concat(choresToRandomize),

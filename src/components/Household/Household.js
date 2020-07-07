@@ -4,6 +4,10 @@ import HouseholdService from '../../services/households-api-service';
 import ChoreService from '../../services/chores-api-service';
 import './Household.css';
 
+//Bugfix: handleAssignChore not rendering on first click
+//Bugfix: handleUnassignAll not rendering on first click
+//Bugfix: handleRandomize not rendering on first click
+
 export default class Household extends React.Component {
     state = {
         allHouseholdChores: [],
@@ -11,6 +15,7 @@ export default class Household extends React.Component {
         unassignedChores: [],
     };
 
+    //Makes a call to the server for the household's users and chores before setting them to state
     setStateFromServer = () => {
         HouseholdService.getHouseholdUsers(this.props.household.householdid)
         .then(res => {
@@ -29,6 +34,7 @@ export default class Household extends React.Component {
         });
     };
 
+    //Creates HTML elements for each user
     renderUsers = (users) => {
         let renderUsers = users.map(user => 
                 <div 
@@ -51,6 +57,8 @@ export default class Household extends React.Component {
         );
     };
 
+    //Filters through household chores for ones that match a userid
+    //Then renders those chores as li items
     renderUserChores = (userid) => {
         let assignedChores = this.state.allHouseholdChores.filter(chore => chore.choreuser === userid);
         let choresToRender = assignedChores.map(chore =>
@@ -64,6 +72,7 @@ export default class Household extends React.Component {
         return(choresToRender);
     };
 
+    //Loops through chores and renders li elements for each
     renderChoreList = (chores, users) => {
         let choreList = chores.map(chore =>
             <li 
@@ -86,6 +95,7 @@ export default class Household extends React.Component {
             );
     };
 
+    //Creates a button for each user to assign a chore to call handleAssignChore for that user
     renderUserButtons = (users, chore) => {
         let buttons = users.map(user =>
             <button
@@ -100,6 +110,7 @@ export default class Household extends React.Component {
         return(buttons)
     };
 
+    //Renders button to call handleRandomize only if there are unassigned chores that can be randomized
     renderRandomizeButton = (unassignedChores) => {
         let users = this.state.usersArray;
         let randomizeButton = 
@@ -116,6 +127,7 @@ export default class Household extends React.Component {
 
     //needs more attention
     //only working on second click?
+    //then write comment
     handleAssignChore = (user, chore) => {
         ChoreService.patchChore(chore.choreid, user.userid, chore.chorehousehold, chore.chorename)
         .then(
@@ -125,6 +137,7 @@ export default class Household extends React.Component {
 
     //needs more attention
     //only working on second click?
+    //then write comment
     handleUnassignAll = () => {
         let assignedChores = this.state.allHouseholdChores.filter(chore => chore.choreuser !== null);
         assignedChores.forEach(chore => {
@@ -137,6 +150,7 @@ export default class Household extends React.Component {
 
     //needs more attention
     //randomizing correctly but not rerendering correctly on first click?
+    //then write comment
     handleRandomize = (users) => {
         let choresToRandomize = this.state.unassignedChores;
         let chunkSize = Math.ceil(choresToRandomize.length / users.length);
@@ -225,6 +239,6 @@ export default class Household extends React.Component {
                     </div>
                 </section>
             </div>
-        )
-    }
-}
+        );
+    };
+};

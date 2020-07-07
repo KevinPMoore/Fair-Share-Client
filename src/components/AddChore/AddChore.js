@@ -3,6 +3,8 @@ import HouseholdService from '../../services/households-api-service';
 import ChoreService from '../../services/chores-api-service';
 import './AddChore.css';
 
+//Bugfix:
+
 export default class AddChore extends React.Component {
     state = {
         choresArray: [],
@@ -38,6 +40,7 @@ export default class AddChore extends React.Component {
         )
     };
 
+    //Sends a post request for a new chore with the householdid as chorehousehold
     handleAddChore = () => {
         ChoreService.postChore(this.state.formname, this.props.household.householdid)
         .then(
@@ -45,6 +48,7 @@ export default class AddChore extends React.Component {
         );
     };
 
+    //Validates that the chore being added is not already in the household then calls handleAddChore
     setChoreModal = (ev) => {
         ev.preventDefault();
         let message = '';
@@ -132,6 +136,6 @@ export default class AddChore extends React.Component {
                 </form>
                 {this.renderChoreModal()}
             </div>
-        )
+        );
     };
 };

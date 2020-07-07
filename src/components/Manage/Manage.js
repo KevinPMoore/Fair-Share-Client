@@ -5,6 +5,9 @@ import UserService from '../../services/users-api-service';
 import ChoreService from '../../services/chores-api-service';
 import './Manage.css';
 
+//Bugfix:
+//Bugfix: remove test button
+
 export default class Manage extends React.Component {
     state = {
         adding: false,
@@ -51,6 +54,7 @@ export default class Manage extends React.Component {
         });
     };
 
+    //Makes a call to the server for the household's users and chores before setting them to state
     setStateFromServer = () => {
         console.log('setStateFromServer ran')
         HouseholdService.getHouseholdUsers(this.props.household.householdid)
@@ -68,12 +72,14 @@ export default class Manage extends React.Component {
         });
     };
 
+    //Displays a modal asking for confirmation before deleting a user
     handleRemoveUserClick = (user) => {
         this.updateWarning(user);
         this.updateModal();
         this.updateUserToRemove(user);
     };
 
+    //Sends delete request to server and if userid matches the logged-in user they are redirected to the userhome component
     removeUser = () => {
         const { location, history } = this.props;
         const destination = (location.state || {}).from || '/userhome';
@@ -89,11 +95,12 @@ export default class Manage extends React.Component {
             UserService.patchUser(this.state.userToRemove.userid, this.state.userToRemove.username, null, null)
             history.push(destination);
             this.props.setHousehold(null);
-        }
-    }
+        };
+    };
 
     //needs more attention
     //this is deleting chores but not updating state the first time it runs
+    //then write comment
     removeChore = (choreid) => {
         ChoreService.deleteChore(choreid)
         .then(
@@ -101,6 +108,7 @@ export default class Manage extends React.Component {
         )
     };
 
+    //Creates li elements for each user
     renderUsers = (users) => {
         let usersToRender = users.map(user =>
                 <li
@@ -131,6 +139,7 @@ export default class Manage extends React.Component {
         );
     };
 
+    //Creates li elements for each chore
     renderChores = chores => {
         let choresToRender = chores.map(chore =>
             <li
@@ -167,6 +176,7 @@ export default class Manage extends React.Component {
         );
     };
 
+    //Ternary in render method displays AddChore component based on state
     renderAddChore = () => {
         return(
             <AddChore
@@ -176,6 +186,7 @@ export default class Manage extends React.Component {
         );
     };
 
+    //Sets initial state on mount
     componentDidMount() {
         this.setStateFromServer();
     };

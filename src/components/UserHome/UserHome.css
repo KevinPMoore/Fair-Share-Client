@@ -11,6 +11,11 @@
     display: none;
 }
 
+.householdinfo {
+    width: 100px;
+    align-self: center;
+}
+
 .householdlink {
     height: 80px;
     width: 80px;

@@ -38,6 +38,7 @@ export default class Header extends React.Component {
         this.props.updateLoggedIn();
     };
 
+    //Used with a ternary in the render method to determine if login/register or home/logout buttons should be rendered based on AuthToken
     renderLogout() {
         return(
             <div className='loggedin'>
@@ -66,6 +67,7 @@ export default class Header extends React.Component {
         );
     };
 
+    //Used with a ternary in the render method to determine if login/register or home/logout buttons should be rendered based on AuthToken
     renderLogin() {
         return(
             <div className='notloggedin'>
@@ -89,19 +91,42 @@ export default class Header extends React.Component {
         );
     };
 
+    //Used with a ternary in the render method to determine if h1 should link to Landing or UserHome based on AuthToken
+    renderLanding() {
+        return(
+            <div className='home'>
+                <h1>
+                    <Link
+                        className='homelink'
+                        to='/'
+                    >
+                        Fair Share
+                    </Link>
+                </h1>
+            </div>
+        );
+    };
+
+    //Used with a ternary in the render method to determine if h1 should link to Landing or UserHome based on AuthToken
+    renderUserHome() {
+        return(
+            <div className='home'>
+                <h1>
+                    <Link
+                        className='homelink'
+                        to='/userhome'
+                    >
+                        Fair Share
+                    </Link>
+                </h1>
+            </div>
+        );
+    };
+
     render() {
         return(
             <nav className='nav'>
-                <div className='home'>
-                    <h1>
-                        <Link
-                            className='homelink'
-                            to='/'
-                        >
-                            Fair Share
-                        </Link>
-                    </h1>
-                </div>
+                {TokenService.hasAuthToken() ? this.renderUserHome() : this.renderLanding()}
                 <div>
                     <img className={[this.state.burger, 'burgericon'].join(' ')} src={HamburgerMenu} alt='a hamburger icon of three horizontle lines' onClick={this.handleToggleClick}></img>
                     <div className={[this.state.buttons, 'buttonscontainer'].join(' ')}>

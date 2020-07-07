@@ -22,6 +22,7 @@ export default class Register extends React.Component {
         });
     };
 
+    //Sends post request to create a new user, then sets an AuthToken for that user to log them in
     handleRegisterSubmit = (ev) => {
         ev.preventDefault();
         this.setState({
