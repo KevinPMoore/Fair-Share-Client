@@ -5,11 +5,6 @@ import HouseholdService from '../../services/households-api-service';
 import UserService from '../../services/users-api-service';
 import './UserHome.css';
 
-//consider using a setStateFromServer here?
-
-//Bugfix: not rendering icon and link to manage when joining
-//Bugfix: error hard to read
-
 export default class UserHome extends React.Component {
     state = {
         formname: '',
@@ -125,7 +120,7 @@ export default class UserHome extends React.Component {
 
     //Only renders the household if the user has created/joined one already
     renderHousehold = (household) => {
-        if(this.state.userhousehold !== null) {
+        if(this.state.householdname !== null) {
             return(
                 <div
                     className='householdinfo'

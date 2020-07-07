@@ -32,6 +32,7 @@ export default class App extends React.Component {
   };
 
   setHousehold = (household) => {
+    console.log('setHousehold ran')
     this.setState({
       household: household
     });
