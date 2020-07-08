@@ -75,11 +75,11 @@ export default class UserHome extends React.Component {
         HouseholdService.getHouseholdById(numberToJoin)
         .then(res => {
             if(res.householdname === nameToJoin) {
-                UserService.patchUser(this.state.userid, this.state.username, res.householdid, this.props.user.userchores);
                 this.props.setHousehold(res);
                 this.setState({
                     householdname: res.householdname
                 });
+                UserService.patchUser(this.state.userid, this.state.username, res.householdid, this.props.user.userchores);
             } else {
                 this.setState({
                     error: 'Incorrect Household name or id'
@@ -187,11 +187,19 @@ export default class UserHome extends React.Component {
 
     //Sets the initial state on component mount
     componentDidMount() {
-        this.setState({
-            username: this.props.user.username,
-            userid: this.props.user.userid,
-            userhousehold: this.props.user.userhousehold
-        });
+        if(this.props.user.userid !== null) {
+            UserService.getUserById(this.props.user.userid)
+            .then(res => {
+                this.props.setUser(res)
+            })
+            .then(
+                this.setState({
+                    username: this.props.user.username,
+                    userid: this.props.user.userid,
+                    userhousehold: this.props.user.userhousehold
+                })
+            );
+        };
         if(this.props.user.userhousehold !== null) {
             HouseholdService.getHouseholdById(this.props.user.userhousehold)
             .then(res => {
@@ -201,6 +209,23 @@ export default class UserHome extends React.Component {
                 });
             });
         };
+    };
+
+    //Updates prop values when leaving the component
+    componentWillUnmount() {
+        let user = {
+            username: this.state.username,
+            userid: this.state.userid,
+            userhousehold: this.state.userhousehold
+        };
+
+        let household = {
+            householdname: this.state.householdname,
+            householdid: this.state.userhousehold
+        };
+
+        this.props.setUser(user);
+        this.props.setHousehold(household);
     };
 
     render() {

@@ -4,15 +4,14 @@ import HouseholdService from '../../services/households-api-service';
 import ChoreService from '../../services/chores-api-service';
 import './Household.css';
 
-//Bugfix: handleAssignChore not rendering on first click
-//Bugfix: handleUnassignAll not rendering on first click
-//Bugfix: handleRandomize not rendering on first click
+//Bugfix: handleAssignChore not always rendering on first click
+//bugnote: look at how unassignall is binding its .then
 
 export default class Household extends React.Component {
     state = {
         allHouseholdChores: [],
         usersArray: [],
-        unassignedChores: [],
+        unassignedChores: []
     };
 
     //Makes a call to the server for the household's users and chores before setting them to state
@@ -129,28 +128,28 @@ export default class Household extends React.Component {
     //only working on second click?
     //then write comment
     handleAssignChore = (user, chore) => {
+        console.log('user being assigned is ', user)
+        console.log('chore to assign is ', chore)
         ChoreService.patchChore(chore.choreid, user.userid, chore.chorehousehold, chore.chorename)
         .then(
             this.setStateFromServer()
         );
     };
 
-    //needs more attention
-    //only working on second click?
-    //then write comment
+    //Sends a patch request for each chore that has a non-null choreuser field to set that field to null
+    //Then resets state by pulling chores from the server
     handleUnassignAll = () => {
         let assignedChores = this.state.allHouseholdChores.filter(chore => chore.choreuser !== null);
-        assignedChores.forEach(chore => {
-            ChoreService.patchChore(chore.choreid, null, chore.chorehousehold, chore.chorename)
-            .then(
-                this.setStateFromServer()
-            );
+
+        Promise.allSettled(assignedChores.map(chore => {
+            return ChoreService.patchChore(chore.choreid, null, chore.chorehousehold, chore.chorename)}))
+        .then(() => {
+            return this.setStateFromServer();
         });
     };
 
-    //needs more attention
-    //randomizing correctly but not rerendering correctly on first click?
-    //then write comment
+    //Shuffles an array of chores, then chunks that array such that each chunk is equally divided among users
+    //The chunked array is shuffled then the chores are patched to assign them to a user
     handleRandomize = (users) => {
         let choresToRandomize = this.state.unassignedChores;
         let chunkSize = Math.ceil(choresToRandomize.length / users.length);
@@ -181,21 +180,19 @@ export default class Household extends React.Component {
         let shuffledAndChunkedChores = shuffle(chunkedChores);
 
         function distributeChores(users, chores) {
+            let tempArray = [];
             for(let i = 0; i < chores.length; i ++) {
-                chores[i].forEach(chore => {
-                    ChoreService.patchChore(chore.choreid, users[i].userid, chore.chorehousehold, chore.chorename)
-                });
+                tempArray.push(...chores[i].map(chore => ChoreService.patchChore(chore.choreid, users[i].userid, chore.chorehousehold, chore.chorename)));
             };
+            return Promise.allSettled(tempArray);
         };
 
-        distributeChores(users, shuffledAndChunkedChores)
-        this.setStateFromServer();
+        distributeChores(users, shuffledAndChunkedChores).then(() => this.setStateFromServer());
     };
 
     componentDidMount() {       
         this.setStateFromServer();
     };
-
 
     render() {
         return(

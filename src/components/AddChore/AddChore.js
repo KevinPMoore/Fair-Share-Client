@@ -3,7 +3,7 @@ import HouseholdService from '../../services/households-api-service';
 import ChoreService from '../../services/chores-api-service';
 import './AddChore.css';
 
-//Bugfix:
+//Bugfix: added chore not rendering on Manage
 
 export default class AddChore extends React.Component {
     state = {
