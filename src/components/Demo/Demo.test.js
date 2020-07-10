@@ -1,8 +1,10 @@
 import React from 'react';
-import ShallowRender from 'react-test-renderer';
+import ReactDOM from 'react-dom';
+import { MemoryRouter } from 'react-router';
 import Demo from './Demo';
 
 it('renders without crashing', () => {
-    const renderer = new ShallowRender();
-    renderer.render(<Demo/>)
+    const div = document.createElement('div');
+    ReactDOM.render(<MemoryRouter><Demo /></MemoryRouter>, div);
+    ReactDOM.unmountComponentAtNode(div);
 });

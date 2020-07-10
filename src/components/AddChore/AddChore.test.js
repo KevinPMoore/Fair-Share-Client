@@ -1,8 +1,8 @@
 import React from 'react';
-import ShallowRender from 'react-test-renderer';
+import TestRenderer from 'react-test-renderer';
 import AddChore from './AddChore';
 
 it('renders without crashing', () => {
-    const renderer = new ShallowRender();
-    renderer.render(<AddChore/>)
+    let household = {householdid: 1, householdname: 'A name'};
+    TestRenderer.create(<AddChore household={household} />);
 });
