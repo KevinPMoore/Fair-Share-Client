@@ -4,9 +4,6 @@ import HouseholdService from '../../services/households-api-service';
 import ChoreService from '../../services/chores-api-service';
 import './Household.css';
 
-//Bugfix: handleAssignChore not always rendering on first click
-//bugnote: look at how unassignall is binding its .then
-
 export default class Household extends React.Component {
     state = {
         allHouseholdChores: [],
@@ -124,16 +121,14 @@ export default class Household extends React.Component {
         };
     };
 
-    //needs more attention
-    //only working on second click?
-    //then write comment
+    //Sends a patch request for a chore to set the choreuser field to match the userid of the user
     handleAssignChore = (user, chore) => {
         console.log('user being assigned is ', user)
         console.log('chore to assign is ', chore)
         ChoreService.patchChore(chore.choreid, user.userid, chore.chorehousehold, chore.chorename)
-        .then(
-            this.setStateFromServer()
-        );
+        .then(() => {
+            return this.setStateFromServer();
+        });
     };
 
     //Sends a patch request for each chore that has a non-null choreuser field to set that field to null

@@ -3,8 +3,6 @@ import HouseholdService from '../../services/households-api-service';
 import ChoreService from '../../services/chores-api-service';
 import './AddChore.css';
 
-//Bugfix: added chore not rendering on Manage
-
 export default class AddChore extends React.Component {
     state = {
         choresArray: [],
@@ -43,9 +41,10 @@ export default class AddChore extends React.Component {
     //Sends a post request for a new chore with the householdid as chorehousehold
     handleAddChore = () => {
         ChoreService.postChore(this.state.formname, this.props.household.householdid)
-        .then(
-            this.setStateFromServer()
-        );
+        .then(() => {
+            this.props.updateAdding();
+            this.props.setStateFromServer();
+        });
     };
 
     //Validates that the chore being added is not already in the household then calls handleAddChore
@@ -71,7 +70,6 @@ export default class AddChore extends React.Component {
             });
             this.handleAddChore();
         };
-
         this.updateModal();
     };
 

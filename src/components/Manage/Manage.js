@@ -5,9 +5,6 @@ import UserService from '../../services/users-api-service';
 import ChoreService from '../../services/chores-api-service';
 import './Manage.css';
 
-//Bugfix:
-//Bugfix: remove test button
-
 export default class Manage extends React.Component {
     state = {
         adding: false,
@@ -85,12 +82,12 @@ export default class Manage extends React.Component {
         const destination = (location.state || {}).from || '/userhome';
         if(this.props.user.userid !== this.state.userToRemove.userid) {
             UserService.patchUser(this.state.userToRemove.userid, this.state.userToRemove.username, null, null)
-            .then(
-                this.setStateFromServer()
-            )
-            .then(
-                this.updateModal()
-            )
+            .then(() => {
+                return this.setStateFromServer();
+            })
+            .then(() => {
+                this.updateModal();
+            })
         } else {
             UserService.patchUser(this.state.userToRemove.userid, this.state.userToRemove.username, null, null)
             history.push(destination);
@@ -98,14 +95,12 @@ export default class Manage extends React.Component {
         };
     };
 
-    //needs more attention
-    //this is deleting chores but not updating state the first time it runs
-    //then write comment
+    //Sends a delete request to the server to remove the chore with the provided choreid
     removeChore = (choreid) => {
         ChoreService.deleteChore(choreid)
-        .then(
-            this.setStateFromServer()
-        )
+        .then(() => {
+            return this.setStateFromServer();
+        });
     };
 
     //Creates li elements for each user
@@ -182,6 +177,8 @@ export default class Manage extends React.Component {
             <AddChore
                 user={this.props.user}
                 household={this.props.household}
+                updateAdding={this.updateAdding}
+                setStateFromServer={this.setStateFromServer}
             />
         );
     };
@@ -196,11 +193,6 @@ export default class Manage extends React.Component {
             <div 
                 className='manage'
             >
-                <button
-                    onClick={() =>  this.setStateFromServer()}
-                >
-                    SET STATE FROM SERVER TEST BUTTON
-                </button>
                 <h2>
                    {this.props.household.householdname}
                 </h2>

@@ -26,14 +26,12 @@ export default class App extends React.Component {
   };
 
   setUser = (user) => {
-    console.log('setUser ran with ', user)
     this.setState({
       user: user
     });
   };
 
   setHousehold = (household) => {
-    console.log('setHousehold ran with ', household)
     this.setState({
       household: household
     });
