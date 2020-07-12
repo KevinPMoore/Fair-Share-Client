@@ -7,12 +7,26 @@ Fair Share is a simple and intuitive platform for organizing and assigning house
 TBD
 
 ## Screenshots
-TBD
+
+### Demo Page
+![a screenshot of the demo component with assigned chores](./ReadMeImages/DemoSS.png)
+
+### Userhome Page
+![a screenshot of the userhome component when the user has a household](./ReadMeImages/UserhomeSS.png)
+
+### Userhome Page w/Forms
+![a screenshot of the userhome component with the join and create forms expanded](./ReadMeImages/JoinCreateSS.png)
+
+### Household Page
+![a screenshot of the household component with a chore list](./ReadMeImages/HouseholdSS.png)
+
+### Manage Page
+![a screenshot of the manage component with the addform component expanded](./ReadMeImages/ManagewithAddSS.png)
 
 ## API Documentation
 ### GET api/users/
 Returns a list of all user objects.  This is the only api endpoint that does not require authorization from a logged-in account to access.  An example user is below.
-![a screenshot of a user object returned from the API](./ReadMeImages/AuthAPI.png)
+![a screenshot of a user object returned from the API](./ReadMeImages/UserAPI.png)
 
 ### POST api/users/
 Adds a user to the database.  The 'username' and 'password' keys are required and the 'userhousehold' is null be default.  The 'password' is hashed upon insertion into the databse.
@@ -31,11 +45,11 @@ Returns a list of all chore objects that have a 'choreuser' key that match the '
 
 ### POST api/auth/login/
 Generates an authToken and user object when provided with valid login credentials.  This authToken is used to access protected endpoints.  An example response is below.
-TBD SS
+1[a screenshot of a user object and authToken returned from the API](./ReadMeImages/AuthAPI.png)
 
 ### GET api/households/
 Returns a list of all household objects.  An example household is below.
-TBD SS
+![a screenshot of a household object returned by the API](./ReadMeImages/HouseholdAPI.png)
 
 ### POST api/households/
 Adds a household to the database.  The only required key is 'householdname'.
@@ -57,7 +71,7 @@ Returns a list of all chore objects that have a 'chorehousehold' key that matche
 
 ### GET api/chores/
 Returns a list of all chore objects.  An example chore object is below.
-TBD SS
+![a screenshot of a chore object returned from the API](./ReadMeImages/ChoreAPI.png)
 
 ### POST api/chores/
 Adds a chore to the databse.  The only required key is 'chorename'.  The 'chorehousehold' key is determined by the client and the 'choreuser' key defaults to null.
