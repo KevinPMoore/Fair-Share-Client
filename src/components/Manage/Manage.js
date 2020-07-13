@@ -8,7 +8,7 @@ import './Manage.css';
 export default class Manage extends React.Component {
     state = {
         adding: false,
-        modal: 'hide',
+        modal: 'hidden',
         choresArray: [],
         usersArray: [],
         userToRemove: null,
@@ -28,13 +28,13 @@ export default class Manage extends React.Component {
     };
 
     updateModal = () => {
-        if(this.state.modal === 'hide') {
+        if(this.state.modal === 'hiddem') {
             this.setState({
                 modal: 'modal'
             })
         } else {
             this.setState({
-                modal: 'hide'
+                modal: 'hidden'
             })
         };
     };

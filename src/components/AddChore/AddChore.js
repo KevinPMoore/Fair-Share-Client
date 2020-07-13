@@ -7,7 +7,7 @@ export default class AddChore extends React.Component {
     state = {
         choresArray: [],
         formname: '',
-        modal: 'hide',
+        modal: 'conceal',
         modalMessage: ''
     };
 
@@ -18,13 +18,13 @@ export default class AddChore extends React.Component {
     };
 
     updateModal = () => {
-        if(this.state.modal === 'hide') {
+        if(this.state.modal === 'conceal') {
             this.setState({
                 modal: 'modal'
             })
         } else {
             this.setState({
-                modal: 'hide'
+                modal: 'conceal'
             })
         };
     };

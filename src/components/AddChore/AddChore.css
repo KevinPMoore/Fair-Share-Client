@@ -65,3 +65,24 @@
     height: 40px;
     width: 60px;
 }
+
+.conceal {
+    display: none;
+}
+
+@media screen and (min-width: 768px) {
+    .chorename {
+        width: 50%;
+        height: 26px;
+    }
+
+    .newchorebutton {
+        height: 52px;
+        width: 64px;
+        margin-bottom: 4px;
+    }
+
+    .modalconfirmbutton {
+        width: 80px;
+    }
+}

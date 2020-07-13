@@ -1,0 +1,30 @@
+.notfoundpage {
+    padding-top: 60px;
+}
+
+.notfoundp {
+    text-align: center;
+    color: whitesmoke;
+    min-height: 80px;
+    min-width: 180px;
+    max-width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 10px;
+    background-color: #5c007a;
+    border: 1px solid #BDBDBD;
+}
+
+@media screen and (min-width: 768px) {
+    .notfoundpage {
+        padding-top: 80px;
+    }
+
+    .notfoundp {
+        min-width: 200px;
+        max-width: 260px;
+        min-height: 100px;
+        padding-top: 20px;
+        box-shadow: 5px 8px 8px #212121;
+    }
+}

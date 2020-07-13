@@ -76,8 +76,8 @@
 .householdchoreheading {
     text-align: center;
     font-size: 1.1rem;
-    color: whitesmoke;
-    text-shadow: 1px 1px black;
+    background-color: whitesmoke;
+    border-bottom: 1px solid black;
 }
 
 .householdchorelist {
@@ -121,4 +121,40 @@
     min-width: 82px;
     max-height: 50px;
     margin-bottom: 3px;
+}
+
+@media screen and (min-width: 768px) {
+    .household {
+        padding-top: 80px;
+    }
+
+    .householduser {
+        min-width: 200px;
+        min-height: 260px;
+    }
+
+    .householdchores {
+        max-width: 360px;
+    }
+
+    .householdchore {
+        margin-bottom: 6px;
+    }
+
+    .householduserassignbutton {
+        margin-left: 3px;
+        margin-right: 3px;
+        min-width: 60px;
+        min-height: 30px;
+        max-width: 120px;
+        max-height: 40px;
+    }
+
+    .householdunassignbutton, .householdrandomizebutton {
+        min-height: 40px;
+        min-width: 90px;
+        max-height: 60px;
+        margin-bottom: 3px;
+        padding: 4px;
+    }
 }

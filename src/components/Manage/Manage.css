@@ -99,7 +99,7 @@
     margin-bottom: 4px;
 }
 
-.hide {
+.hidden {
     display: none;
 }
 
@@ -127,4 +127,38 @@
     width: 80%;
     display: flex;
     justify-content: space-evenly;
+}
+
+@media screen and (min-width: 768px) {
+    .manage {
+        padding-top: 80px;
+    }
+
+    .householdid {
+        margin-bottom: 6px;
+    }
+
+    .manageusers {
+        width: 70%;
+        margin-bottom: 60px;
+    }
+
+    .manageuserbutton {
+        height: 50px;
+        width: 80px;
+    }
+
+    .managechores {
+        width: 70%;
+    }
+
+    .managechorebutton {
+        height: 50px;
+        width: 80px; 
+    }
+
+    .addchorebutton {
+        height: 50px;
+        width: 60px;
+    }
 }

@@ -66,8 +66,8 @@ h2 {
 .demochoreheading {
     text-align: center;
     font-size: 1.1rem;
-    color: whitesmoke;
-    text-shadow: 1px 1px black;
+    background-color: whitesmoke;
+    border-bottom: 1px solid black;
 }
 
 .demochorelist {
@@ -126,4 +126,52 @@ h2 {
     max-height: 50px;
     max-width: 70px;
     margin-top: 5px;
+}
+
+@media screen and (min-width: 768px) {
+    .demo {
+        padding-top: 90px;
+    }
+
+    .demouser {
+        min-width: 200px;
+        min-height: 260px;
+    }
+
+    .demochores {
+        max-width: 360px;
+    }
+
+    .demochore {
+        margin-bottom: 6px;
+    }
+
+    .demouserassignbutton {
+        margin-left: 3px;
+        margin-right: 3px;
+        min-width: 60px;
+        min-height: 30px;
+        max-width: 70px;
+        max-height: 40px;
+    }
+
+    .demounassignbutton, .demorandomizebutton {
+        min-height: 40px;
+        min-width: 90px;
+        max-height: 60px;
+        margin-bottom: 3px;
+        padding: 4px;
+    }
+
+    .demofooter {
+        height: 50px;
+    }
+
+    .demofooterbutton {
+        min-height: 40px;
+        min-width: 80px;
+        max-height: 60px;
+        max-width: 90px;
+        margin-top: 8px;
+    }
 }

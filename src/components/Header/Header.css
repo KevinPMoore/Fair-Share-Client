@@ -84,3 +84,51 @@ img:hover {
 .xicon {
     margin-left: 18px;
 }
+
+.hide {
+    display: none;
+}
+
+@media screen and (min-width: 768px) {
+    nav {
+        height: 80px;
+    }
+
+    .hide {
+        display: initial;
+    }
+
+    .xicon, .burgericon {
+        display: none;
+    }
+
+    .buttonscontainer {
+        display: flex;
+        justify-content: flex-end;
+        flex-direction: row;
+        min-height: 80px;
+        max-height: 80px;
+        width: 300px;
+    }
+
+    .buttonscontainer:before {
+        content: '';
+        border-left: 1px solid #BDBDBD;
+        position: absolute;
+        top: 0px;
+        bottom: 0px;
+    }
+
+    .notloggedin, .loggedin {
+        margin: auto;
+        min-width: 200px;
+        flex-direction: row;
+        justify-content: space-evenly;
+    }
+
+    .navbutton {
+        min-height: 40px;
+        min-width: 80px;
+        max-height: 60px;
+    }
+}

@@ -129,3 +129,49 @@
     margin-bottom: 8px;
     box-shadow: 5px 8px 8px black;
 }
+
+@media screen and (min-width: 768px) {
+    .userhome {
+        padding-top: 80px;
+    }
+
+    .householdinfo {
+        width: 160px;
+    }
+
+    .houseicon {
+        height: 100px;
+        width: 100px;
+    }
+
+    .leavehouseholdbutton {
+        min-height: 40px;
+        min-width: 80px;
+        max-height: 60px;
+        max-width: 110px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .joinhouseholdbutton, .createhouseholdbutton {
+        min-height: 40px;
+        min-width: 80px;
+        max-height: 60px;
+        max-width: 110px;
+        margin-top: 4px;
+        margin-bottom: 4px;
+    }
+
+    .joinhouseholdform, .createhouseholdform {
+        min-height: 180px;
+        width: 60%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 6px;
+        margin-bottom: 6px;
+    }
+
+    #joinhouseholdname, #joinhouseholdid, #createhouseholdname {
+        width: 50%;
+    }
+}
