@@ -53,7 +53,6 @@ export default class Manage extends React.Component {
 
     //Makes a call to the server for the household's users and chores before setting them to state
     setStateFromServer = () => {
-        console.log('setStateFromServer ran')
         HouseholdService.getHouseholdUsers(this.props.household.householdid)
         .then(res => {
             this.setState({

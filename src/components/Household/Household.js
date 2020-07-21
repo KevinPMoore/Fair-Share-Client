@@ -123,8 +123,6 @@ export default class Household extends React.Component {
 
     //Sends a patch request for a chore to set the choreuser field to match the userid of the user
     handleAssignChore = (user, chore) => {
-        console.log('user being assigned is ', user)
-        console.log('chore to assign is ', chore)
         ChoreService.patchChore(chore.choreid, user.userid, chore.chorehousehold, chore.chorename)
         .then(() => {
             return this.setStateFromServer();

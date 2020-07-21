@@ -1,10 +1,12 @@
 # Fair Share
 
 ## Summary
-Fair Share is a simple and intuitive platform for organizing and assigning household chores.  Users are able to create a new household or join an existing household created by another user.  Users can generate chores for each household and then assign them to members of that household manually, randomly, or through a combination of both methods.  
+Fair Share is a simple and intuitive platform for organizing and assigning household chores.  Users are able to create a new household or join an existing household created by another user.  Users can generate chores for each household and then assign them to members of that household manually, randomly, or through a combination of both methods.
+
+To demo the application, log in with the username 'DemoUser' and the password 'V3ryS3cr1t!'.
 
 ## Live Link
-TBD
+https://fair-share-sigma.vercel.app/
 
 ## Screenshots
 

@@ -117,8 +117,6 @@ export default class Demo extends React.Component {
             Randomize
         </button>
 
-        console.log('unassignedChores lenth is ', this.state.unassignedChores.length);
-
         if(this.state.unassignedChores.length !== 0) {
             return randomizeButton;
         };
@@ -126,7 +124,6 @@ export default class Demo extends React.Component {
 
     //Removes all chores from users, empties assignedChores and sets all chore back to unassignedChores
     handleUnassignAll = () => {
-        console.log('stored users ', Store.storedUsers)
         this.setState({
             unassignedChores: _.cloneDeep(Store.storedChores),
             assignedChores: [],
