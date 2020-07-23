@@ -42,7 +42,7 @@ export default class AddChore extends React.Component {
     handleAddChore = () => {
         ChoreService.postChore(this.state.formname, this.props.household.householdid)
         .then(() => {
-            this.props.updateAdding();
+            //this.props.updateAdding();
             this.props.setStateFromServer();
         });
     };
@@ -86,7 +86,7 @@ export default class AddChore extends React.Component {
                     </p>
                     <button
                         className='modalconfirmbutton'
-                        onClick={this.updateModal}
+                        onClick={this.handleModalConfirm}
                     >
                         Confirm
                     </button>
@@ -94,6 +94,11 @@ export default class AddChore extends React.Component {
 
             </div>
         );
+    };
+
+    handleModalConfirm = () => {
+        this.updateModal();
+        this.props.updateAdding();
     };
 
     componentDidMount() {
