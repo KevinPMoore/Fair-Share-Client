@@ -180,7 +180,12 @@ export default class Household extends React.Component {
             return Promise.allSettled(tempArray);
         };
 
-        distributeChores(users, shuffledAndChunkedChores).then(() => this.setStateFromServer());
+        if(choresToRandomize.length === 1) {
+            let luckyIndex = (Math.floor(Math.random() * Math.floor(users.length)));
+            this.handleAssignChore(users[luckyIndex], choresToRandomize[0]);
+        } else {
+            distributeChores(users, shuffledAndChunkedChores).then(() => this.setStateFromServer());
+        }
     };
 
     componentDidMount() {       
