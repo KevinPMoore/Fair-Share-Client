@@ -237,7 +237,7 @@ export default class UserHome extends React.Component {
                     {this.props.user.username}
                 </h2>
                 <div className='alert'>
-                    {error && <p className='red'>{error}</p>}
+                    {error && <p className='error'>{error}</p>}
                 </div>
                 {this.renderHousehold(this.state.householdname)}
                 {this.renderLeaveHouseButton()}

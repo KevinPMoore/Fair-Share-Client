@@ -5,7 +5,7 @@
     flex-direction: column;
     justify-self: center;
     padding-top: 80px;
-    background-color: #c158dc;
+    background-color: #E63946;
 }
 
 .registerh {
@@ -17,17 +17,15 @@
 .passwordrules {
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: 4px;
+    margin-bottom: 8px;
     text-align: center;
     padding-left: 2px;
     padding-right: 2px;
     padding-bottom: 2px;
     max-width: 300px;
-    color: whitesmoke
-}
-
-.registeruserlabel, .registerpasswordlabel {
-    color: whitesmoke;
+    background-color: #457B9D;
+    border: 1px solid #F1FAEE;
+    box-shadow: 5px 8px 8px black;
 }
 
 #registerusername, #registerpassword {

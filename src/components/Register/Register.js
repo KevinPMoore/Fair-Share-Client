@@ -82,7 +82,7 @@ export default class Register extends React.Component {
                         letter, a number and a special character.
                     </p>
                     <div className='alert'>
-                        {error && <p className='red'>{error}</p>}
+                        {error && <p className='error'>{error}</p>}
                     </div>
                     <div
                         className='formcontainer'

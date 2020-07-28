@@ -62,7 +62,11 @@ export default class Landing extends React.Component {
                     </p>
                 </section>
                 <footer className='landingfooter'>
-                    <h2>Give it a try!</h2>
+                    <h2
+                        className='footerh2'
+                    >
+                        Give it a try!
+                    </h2>
                     <p
                         className='footerp'
                     >

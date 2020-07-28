@@ -2,12 +2,12 @@ nav {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    background-color: #5c007a;
+    background-color: #1D3557;
     height: 60px;
     position: fixed;
     top: 0;
     width: 100%;
-    border-bottom: 1px solid #BDBDBD;
+    border-bottom: 1px solid #F1FAEE;
 }
 
 .home {
@@ -36,14 +36,14 @@ img:hover {
     justify-content: center;
     min-width: 70px;
     min-height: 140px;
-    background-color: #5c007a;
-    border-bottom: 1px solid #BDBDBD;
-    border-right: 1px solid #BDBDBD;
+    background-color: #1D3557;
+    border-bottom: 1px solid #F1FAEE;
+    border-right: 1px solid #F1FAEE;
 }
 
 .buttonscontainer:before {
     content: '';
-    border-left: 1px solid #BDBDBD;
+    border-left: 1px solid #F1FAEE;
     position: absolute;
     top: 60px;
     bottom: 0;
@@ -113,7 +113,7 @@ img:hover {
 
     .buttonscontainer:before {
         content: '';
-        border-left: 1px solid #BDBDBD;
+        border-left: 1px solid #F1FAEE;
         position: absolute;
         top: 0px;
         bottom: 0px;

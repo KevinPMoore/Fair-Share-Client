@@ -4,14 +4,16 @@
     display: flex;
     flex-direction: column;
     padding-top: 60px;
-    background-color: #c158dc;
+    background-color: #E63946;
 }
 
 h2 {
     text-align: center;
-    color: whitesmoke;
     margin-bottom: 10px;
-    text-shadow: 2px 2px black;
+}
+
+.demoh2 {
+    color: whitesmoke;
 }
 
 .demousers {
@@ -27,9 +29,9 @@ h2 {
     min-width: 130px;
     max-width: 40%;
     min-height: 180px;
-    background-color: #8e24aa;
+    background-color: #457B9D;
     margin-bottom: 4px;
-    border: 1px solid #BDBDBD;
+    border: 1px solid #F1FAEE;
     box-shadow: 5px 8px 8px black;
 }
 
@@ -57,10 +59,10 @@ h2 {
     width: 88%;
     margin-left: auto;
     margin-right:  auto;
-    background-color: #8e24aa;
+    background-color: #457B9D;
     border: 1px solid #BDBDBD;
     box-shadow: 5px 8px 8px black;
-    margin-bottom: 40px;
+    margin-bottom: 60px;
 }
 
 .demochoreheading {
@@ -85,7 +87,6 @@ h2 {
     justify-content: space-between;
     padding-left: 8px;
     padding-right: 8px;
-    color: whitesmoke;
 }
 
 .demouserassignbutton {
@@ -113,7 +114,7 @@ h2 {
 .demofooter {
     border-top: 1px solid whitesmoke;
     text-align: center;
-    background-color: #5c007a;
+    background-color: #1D3557;
     position: fixed;
     bottom: 0;
     width: 100%;

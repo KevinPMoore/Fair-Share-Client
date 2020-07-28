@@ -12,7 +12,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   height: 100vh;
   width: 100%;
-  background-color: #c158dc;
+  background-color: #E63946;
 }
 
 #root {
@@ -23,7 +23,7 @@ body {
 .app {
   width: 100%;
   height: 100%;
-  background-color: #c158dc;
+  background-color: #E63946;
 }
 
 p {
@@ -46,7 +46,7 @@ button {
 
 button:hover {
   color: whitesmoke;
-  background-color: #c158dc;
+  background-color: #E63946;
 }
 
 @media screen and (min-width: 768px) {

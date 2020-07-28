@@ -24,12 +24,11 @@
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    background-color: #8e24aa;
+    background-color: #457B9D;
 }
 
 .chorenamelabel {
     text-align: center;
-    color: whitesmoke;
 }
 
 .chorename {

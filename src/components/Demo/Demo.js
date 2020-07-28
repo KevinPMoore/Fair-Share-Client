@@ -185,7 +185,9 @@ export default class Demo extends React.Component {
 
         return(
             <div className='demo'>
-                <h2>
+                <h2
+                    className='demoh2'
+                >
                     Demo House
                 </h2>
                 {this.renderUsers(this.state.users)}

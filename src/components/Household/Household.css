@@ -4,19 +4,16 @@
     display: flex;
     flex-direction: column;
     padding-top: 60px;
-    background-color: #c158dc;
+    background-color: #E63946;
 }
 
 .householdid {
-    color: whitesmoke;
-    text-shadow: 2px 2px black;
     text-align: center;
 }
 
 .managelink {
     align-self: center;
-    color: whitesmoke;
-    text-shadow: 1px 1px black;
+    color: black;
     font-size: 1.2rem;
     margin-bottom: 4px;
 }
@@ -38,9 +35,9 @@
     min-width: 130px;
     max-width: 40%;
     min-height: 180px;
-    background-color: #8e24aa;
+    background-color: #457B9D;
     margin-bottom: 4px;
-    border: 1px solid #BDBDBD;
+    border: 1px solid #F1FAEE;
     box-shadow: 5px 8px 8px black;
 }
 
@@ -67,8 +64,8 @@
     width: 88%;
     margin-left: auto;
     margin-right:  auto;
-    background-color: #8e24aa;
-    border: 1px solid #BDBDBD;
+    background-color: #457B9D;
+    border: 1px solid #F1FAEE;
     box-shadow: 5px 8px 8px black;
     margin-bottom: 40px;
 }

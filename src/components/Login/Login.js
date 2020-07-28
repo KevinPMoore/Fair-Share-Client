@@ -71,7 +71,7 @@ export default class Login extends React.Component {
                     onSubmit={this.handleSubmitJTWAuth}
                 >
                     <div className='alert'>
-                        {error && <p className='red'>{error}</p>}
+                        {error && <p className='error'>{error}</p>}
                     </div>
                     <div
                         className='formcontainer'
