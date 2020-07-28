@@ -12,7 +12,7 @@ export default class Landing extends React.Component {
         return(
             <section className='landing'>
                 <section className='landingsection'>
-                    <h3>Its time to get organized!</h3>
+                    <h2>Its time to get organized!</h2>
                     <img className='right screenshot' src={JoinCreateSS} alt='a screenshot of the join and create household forms'/>
                     <p
                         className='landingp'
@@ -25,7 +25,7 @@ export default class Landing extends React.Component {
                     </p>
                 </section>
                 <section className='landingsection'>
-                    <h3>Share the load.</h3>
+                    <h2>Share the load.</h2>
                     <img className='right screenshot' src={DemoSS} alt='a screenshot of distributed chores'/>
                     <p
                         className='landingp'
@@ -37,7 +37,7 @@ export default class Landing extends React.Component {
                     </p>
                 </section>
                 <section className='landingsection'>
-                    <h3>But what if I like folding laundry?</h3>
+                    <h2>But what if I like folding laundry?</h2>
                     <img className='right screenshot' src={HouseholdSS} alt='a screenshot of a household where chores can be assigned'/>
                     <p
                         className='landingp'
@@ -50,7 +50,7 @@ export default class Landing extends React.Component {
                     </p>
                 </section>
                 <section className='landingsection'>
-                    <h3>Every household is unique.</h3>
+                    <h2>Every household is unique.</h2>
                     <img className='right screenshot' src={ManagewithAddSS} alt='a screenshot of the manage component with the addchore form'/>
                     <p
                         className='landingp'
@@ -62,7 +62,7 @@ export default class Landing extends React.Component {
                     </p>
                 </section>
                 <footer className='landingfooter'>
-                    <h3>Give it a try!</h3>
+                    <h2>Give it a try!</h2>
                     <p
                         className='footerp'
                     >
