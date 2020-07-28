@@ -77,7 +77,8 @@ export default class UserHome extends React.Component {
             if(res.householdname === nameToJoin) {
                 this.props.setHousehold(res);
                 this.setState({
-                    householdname: res.householdname
+                    householdname: res.householdname,
+                    userhousehold: numberToJoin
                 });
                 UserService.patchUser(this.state.userid, this.state.username, res.householdid, this.props.user.userchores);
             } else {
